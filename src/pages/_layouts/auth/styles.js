@@ -18,7 +18,6 @@ export const Content = styled.div`
   padding: 60px 30px;
   box-shadow: 0px 0px 10px #00000033;
   border-radius: 4px;
-  opacity: 1;
 
   form {
     display: flex;

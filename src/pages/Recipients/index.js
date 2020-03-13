@@ -1,5 +1,4 @@
 import React from 'react';
-import api from '~/services/api';
 
 import { MdSearch, MdAdd, MdMoreHoriz } from 'react-icons/md';
 
@@ -11,16 +10,14 @@ import {
   OptionsButton,
 } from '~/styles/listsDefault';
 
-export default function Deliveries() {
-  api.get('deliveries');
-
+export default function Recipients() {
   return (
     <Container>
-      <strong>Gerenciamento de encomendas</strong>
+      <strong>Gerenciamento de destinatários</strong>
       <LineTools>
         <SearchTool>
           <MdSearch color="#999999" size={25} />
-          <input type="search" placeholder="Buscar por encomendas" />
+          <input type="search" placeholder="Buscar por destinatários" />
         </SearchTool>
 
         <button type="submit">
@@ -32,11 +29,8 @@ export default function Deliveries() {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Destinatário</th>
-            <th>Entregador</th>
-            <th>Cidade</th>
-            <th>Estado</th>
-            <th>Status</th>
+            <th>Nome</th>
+            <th>Endereço</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -44,10 +38,7 @@ export default function Deliveries() {
           <tr>
             <td>#01</td>
             <td>Ludwig van Beethoven</td>
-            <td>John Doe</td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>Entregue</td>
+            <td>Rua Beethoven, 1729, Diadema - São Paulo</td>
             <td>
               <OptionsButton type="submit">
                 <MdMoreHoriz color="#C6C6C6" size={20} />
@@ -57,10 +48,7 @@ export default function Deliveries() {
           <tr>
             <td>#02</td>
             <td>Ludwig van Beethoven</td>
-            <td>John Doe</td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>Entregue</td>
+            <td>Rua Beethoven, 1729, Diadema - São Paulo</td>
             <td>
               <OptionsButton type="submit">
                 <MdMoreHoriz color="#C6C6C6" size={20} />
@@ -70,10 +58,7 @@ export default function Deliveries() {
           <tr>
             <td>#02</td>
             <td>Ludwig van Beethoven</td>
-            <td>John Doe</td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>Entregue</td>
+            <td>Rua Beethoven, 1729, Diadema - São Paulo</td>
             <td>
               <OptionsButton type="submit">
                 <MdMoreHoriz color="#C6C6C6" size={20} />
@@ -83,10 +68,7 @@ export default function Deliveries() {
           <tr>
             <td>#02</td>
             <td>Ludwig van Beethoven</td>
-            <td>John Doe</td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>Entregue</td>
+            <td>Rua Beethoven, 1729, Diadema - São Paulo</td>
             <td>
               <OptionsButton type="submit">
                 <MdMoreHoriz color="#C6C6C6" size={20} />

@@ -1,5 +1,4 @@
 import React from 'react';
-import api from '~/services/api';
 
 import { MdSearch, MdAdd, MdMoreHoriz } from 'react-icons/md';
 
@@ -11,16 +10,15 @@ import {
   OptionsButton,
 } from '~/styles/listsDefault';
 
-export default function Deliveries() {
-  api.get('deliveries');
-
+export default function Deliverymans() {
   return (
     <Container>
-      <strong>Gerenciamento de encomendas</strong>
+      <strong>Gerenciando entregadores</strong>
+
       <LineTools>
         <SearchTool>
           <MdSearch color="#999999" size={25} />
-          <input type="search" placeholder="Buscar por encomendas" />
+          <input type="search" placeholder="Buscar por entregadores" />
         </SearchTool>
 
         <button type="submit">
@@ -28,26 +26,23 @@ export default function Deliveries() {
           CADASTRAR
         </button>
       </LineTools>
+
       <Table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Destinatário</th>
-            <th>Entregador</th>
-            <th>Cidade</th>
-            <th>Estado</th>
-            <th>Status</th>
+            <th>Foto</th>
+            <th>Nome</th>
+            <th>Email</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>#01</td>
-            <td>Ludwig van Beethoven</td>
+            <td>LD</td>
             <td>John Doe</td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>Entregue</td>
+            <td>example@rocketseat.com</td>
             <td>
               <OptionsButton type="submit">
                 <MdMoreHoriz color="#C6C6C6" size={20} />
@@ -55,12 +50,10 @@ export default function Deliveries() {
             </td>
           </tr>
           <tr>
-            <td>#02</td>
-            <td>Ludwig van Beethoven</td>
+            <td>#01</td>
+            <td>LD</td>
             <td>John Doe</td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>Entregue</td>
+            <td>example@rocketseat.com</td>
             <td>
               <OptionsButton type="submit">
                 <MdMoreHoriz color="#C6C6C6" size={20} />
@@ -68,12 +61,10 @@ export default function Deliveries() {
             </td>
           </tr>
           <tr>
-            <td>#02</td>
-            <td>Ludwig van Beethoven</td>
+            <td>#01</td>
+            <td>LD</td>
             <td>John Doe</td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>Entregue</td>
+            <td>example@rocketseat.com</td>
             <td>
               <OptionsButton type="submit">
                 <MdMoreHoriz color="#C6C6C6" size={20} />
@@ -81,12 +72,21 @@ export default function Deliveries() {
             </td>
           </tr>
           <tr>
-            <td>#02</td>
-            <td>Ludwig van Beethoven</td>
-            <td>John Doe</td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>Entregue</td>
+            <td>#01</td>
+            <td>LD</td>
+            <td>Gaspar Antunes</td>
+            <td>example@rocketseat.com</td>
+            <td>
+              <OptionsButton type="submit">
+                <MdMoreHoriz color="#C6C6C6" size={20} />
+              </OptionsButton>
+            </td>
+          </tr>
+          <tr>
+            <td>#01</td>
+            <td>LD</td>
+            <td>Marc Franklin</td>
+            <td>example@rocketseat.com</td>
             <td>
               <OptionsButton type="submit">
                 <MdMoreHoriz color="#C6C6C6" size={20} />
