@@ -1,5 +1,5 @@
 import React from 'react';
-import api from '~/services/api';
+import { Link } from 'react-router-dom';
 
 import { MdSearch, MdAdd, MdMoreHoriz } from 'react-icons/md';
 
@@ -12,8 +12,6 @@ import {
 } from '~/styles/listsDefault';
 
 export default function Deliveries() {
-  api.get('deliveries');
-
   return (
     <Container>
       <strong>Gerenciamento de encomendas</strong>
@@ -23,10 +21,9 @@ export default function Deliveries() {
           <input type="search" placeholder="Buscar por encomendas" />
         </SearchTool>
 
-        <button type="submit">
-          <MdAdd color="#fff" size={23} />
-          CADASTRAR
-        </button>
+        <Link to="/delivery/register">
+          <MdAdd color="#fff" size={23} /> CADASTRAR
+        </Link>
       </LineTools>
       <Table>
         <thead>

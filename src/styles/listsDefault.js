@@ -20,14 +20,13 @@ export const LineTools = styled.div`
   justify-content: space-between;
   margin-top: 34px;
 
-  button {
+  a {
     width: 142px;
     height: 36px;
     background: #7d40e7;
     border-radius: 4px;
     font-weight: bold;
     color: #fff;
-    border: 0;
     display: flex;
     justify-content: center;
     align-items: center;

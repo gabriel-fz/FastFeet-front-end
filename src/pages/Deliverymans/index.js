@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { MdSearch, MdAdd, MdMoreHoriz } from 'react-icons/md';
 
@@ -21,10 +22,9 @@ export default function Deliverymans() {
           <input type="search" placeholder="Buscar por entregadores" />
         </SearchTool>
 
-        <button type="submit">
-          <MdAdd color="#fff" size={23} />
-          CADASTRAR
-        </button>
+        <Link to="/deliveryman/register">
+          <MdAdd color="#fff" size={23} /> CADASTRAR
+        </Link>
       </LineTools>
 
       <Table>

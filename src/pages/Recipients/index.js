@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { MdSearch, MdAdd, MdMoreHoriz } from 'react-icons/md';
 
@@ -20,10 +21,9 @@ export default function Recipients() {
           <input type="search" placeholder="Buscar por destinatários" />
         </SearchTool>
 
-        <button type="submit">
-          <MdAdd color="#fff" size={23} />
-          CADASTRAR
-        </button>
+        <Link to="/recipient/register">
+          <MdAdd color="#fff" size={23} /> CADASTRAR
+        </Link>
       </LineTools>
       <Table>
         <thead>
