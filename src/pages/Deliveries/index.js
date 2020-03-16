@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import api from '~/services/api';
 
 import Actions from '~/components/Actions';
+
+import Badges from './Badges';
 
 import {
   MdSearch,
@@ -14,6 +17,40 @@ import {
 import { Container, LineTools, SearchTool, Table } from '~/styles/listsDefault';
 
 export default function Deliveries() {
+  const [deliveries, setDeliveries] = useState([]);
+
+  useEffect(() => {
+    async function loadDeliveries() {
+      const response = await api.get('deliveries');
+
+      const data = response.data.map(delivery => ({
+        ...delivery,
+        status: checkStatus(
+          delivery.start_date,
+          delivery.end_date,
+          delivery.canceled_at
+        ),
+      }));
+
+      setDeliveries(data);
+    }
+
+    loadDeliveries();
+  }, []);
+
+  function checkStatus(start_date, end_date, canceled_at) {
+    if (canceled_at) {
+      return 'CANCELADA';
+    }
+    if (end_date) {
+      return 'ENTREGUE';
+    }
+    if (!start_date) {
+      return 'PENDENTE';
+    }
+    return 'RETIRADA';
+  }
+
   return (
     <Container>
       <strong>Gerenciamento de encomendas</strong>
@@ -40,68 +77,37 @@ export default function Deliveries() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>#01</td>
-            <td>Ludwig van Beethoven</td>
-            <td>John Doe</td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>Entregue</td>
-            <td>
-              <Actions>
-                <div>
-                  <button type="button">
-                    <MdVisibility color="#8E5BE8" size={15} /> Visualizar
-                  </button>
-                </div>
-
-                <div>
-                  <button type="button">
-                    <MdModeEdit color="#4D85EE" size={15} /> Editar
-                  </button>
-                </div>
-
-                <div>
-                  <button type="button">
-                    <MdDeleteForever color="#DE3B3B" size={15} /> Excluir
-                  </button>
-                </div>
-              </Actions>
-            </td>
-          </tr>
-          <tr>
-            <td>#02</td>
-            <td>Ludwig van Beethoven</td>
-            <td>John Doe</td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>Entregue</td>
-            <td>
-              <Actions />
-            </td>
-          </tr>
-          <tr>
-            <td>#02</td>
-            <td>Ludwig van Beethoven</td>
-            <td>John Doe</td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>Entregue</td>
-            <td>
-              <Actions />
-            </td>
-          </tr>
-          <tr>
-            <td>#02</td>
-            <td>Ludwig van Beethoven</td>
-            <td>John Doe</td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>Entregue</td>
-            <td>
-              <Actions />
-            </td>
-          </tr>
+          {deliveries.map(delivery => (
+            <tr>
+              <td>{delivery.id}</td>
+              <td>{delivery.recipient.name}</td>
+              <td>{delivery.deliveryman.name}</td>
+              <td>{delivery.recipient.city}</td>
+              <td>{delivery.recipient.state}</td>
+              <td>
+                <Badges status={delivery.status} />
+              </td>
+              <td>
+                <Actions>
+                  <div>
+                    <button type="button">
+                      <MdVisibility color="#8E5BE8" size={15} /> Visualizar
+                    </button>
+                  </div>
+                  <div>
+                    <button type="button">
+                      <MdModeEdit color="#4D85EE" size={15} /> Editar
+                    </button>
+                  </div>
+                  <div>
+                    <button type="button">
+                      <MdDeleteForever color="#DE3B3B" size={15} /> Excluir
+                    </button>
+                  </div>
+                </Actions>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </Container>
