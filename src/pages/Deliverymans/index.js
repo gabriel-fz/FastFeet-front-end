@@ -1,25 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import api from '~/services/api';
 
 import Actions from '~/components/Actions';
 
-import {
-  MdSearch,
-  MdAdd,
-  MdMoreHoriz,
-  MdModeEdit,
-  MdDeleteForever,
-} from 'react-icons/md';
+import { MdSearch, MdAdd, MdModeEdit, MdDeleteForever } from 'react-icons/md';
 
-import {
-  Container,
-  LineTools,
-  SearchTool,
-  Table,
-  OptionsButton,
-} from '~/styles/listsDefault';
+import { Container, LineTools, SearchTool, Table } from '~/styles/listsDefault';
 
 export default function Deliverymans() {
+  const [deliverymans, setDeliverymans] = useState([]);
+
+  useEffect(() => {
+    async function loadDeliverymans() {
+      const response = await api.get('deliverymans');
+
+      setDeliverymans(response.data);
+    }
+
+    loadDeliverymans();
+  }, []);
+
   return (
     <Container>
       <strong>Gerenciando entregadores</strong>
@@ -46,71 +47,29 @@ export default function Deliverymans() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>#01</td>
-            <td>LD</td>
-            <td>John Doe</td>
-            <td>example@rocketseat.com</td>
-            <td>
-              <Actions>
-                <div>
-                  <button type="button">
-                    <MdModeEdit color="#4D85EE" size={15} /> Editar
-                  </button>
-                </div>
+          {deliverymans.map(deliveryman => (
+            <tr>
+              <td>{deliveryman.id}</td>
+              <td>TS</td>
+              <td>{deliveryman.name}</td>
+              <td>{deliveryman.email}</td>
+              <td>
+                <Actions>
+                  <div>
+                    <button type="button">
+                      <MdModeEdit color="#4D85EE" size={15} /> Editar
+                    </button>
+                  </div>
 
-                <div>
-                  <button type="button">
-                    <MdDeleteForever color="#DE3B3B" size={15} /> Excluir
-                  </button>
-                </div>
-              </Actions>
-            </td>
-          </tr>
-          <tr>
-            <td>#01</td>
-            <td>LD</td>
-            <td>John Doe</td>
-            <td>example@rocketseat.com</td>
-            <td>
-              <OptionsButton type="submit">
-                <MdMoreHoriz color="#C6C6C6" size={20} />
-              </OptionsButton>
-            </td>
-          </tr>
-          <tr>
-            <td>#01</td>
-            <td>LD</td>
-            <td>John Doe</td>
-            <td>example@rocketseat.com</td>
-            <td>
-              <OptionsButton type="submit">
-                <MdMoreHoriz color="#C6C6C6" size={20} />
-              </OptionsButton>
-            </td>
-          </tr>
-          <tr>
-            <td>#01</td>
-            <td>LD</td>
-            <td>Gaspar Antunes</td>
-            <td>example@rocketseat.com</td>
-            <td>
-              <OptionsButton type="submit">
-                <MdMoreHoriz color="#C6C6C6" size={20} />
-              </OptionsButton>
-            </td>
-          </tr>
-          <tr>
-            <td>#01</td>
-            <td>LD</td>
-            <td>Marc Franklin</td>
-            <td>example@rocketseat.com</td>
-            <td>
-              <OptionsButton type="submit">
-                <MdMoreHoriz color="#C6C6C6" size={20} />
-              </OptionsButton>
-            </td>
-          </tr>
+                  <div>
+                    <button type="button">
+                      <MdDeleteForever color="#DE3B3B" size={15} /> Excluir
+                    </button>
+                  </div>
+                </Actions>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </Container>

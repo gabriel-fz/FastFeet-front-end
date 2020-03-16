@@ -1,25 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import api from '~/services/api';
 
 import Actions from '~/components/Actions';
 
-import {
-  MdSearch,
-  MdAdd,
-  MdMoreHoriz,
-  MdModeEdit,
-  MdDeleteForever,
-} from 'react-icons/md';
+import { MdSearch, MdAdd, MdModeEdit, MdDeleteForever } from 'react-icons/md';
 
-import {
-  Container,
-  LineTools,
-  SearchTool,
-  Table,
-  OptionsButton,
-} from '~/styles/listsDefault';
+import { Container, LineTools, SearchTool, Table } from '~/styles/listsDefault';
 
 export default function Recipients() {
+  const [recipients, setRecipients] = useState([]);
+
+  useEffect(() => {
+    async function loadRecipients() {
+      const response = await api.get('recipients');
+
+      setRecipients(response.data);
+    }
+
+    loadRecipients();
+  }, []);
+
   return (
     <Container>
       <strong>Gerenciamento de destinatários</strong>
@@ -43,56 +44,30 @@ export default function Recipients() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>#01</td>
-            <td>Ludwig van Beethoven</td>
-            <td>Rua Beethoven, 1729, Diadema - São Paulo</td>
-            <td>
-              <Actions>
-                <div>
-                  <button type="button">
-                    <MdModeEdit color="#4D85EE" size={15} /> Editar
-                  </button>
-                </div>
+          {recipients.map(recipient => (
+            <tr>
+              <td>{recipient.id}</td>
+              <td>{recipient.name}</td>
+              <td>
+                {`${recipient.address}, ${recipient.address_number}, ${recipient.city} - ${recipient.state} (${recipient.complement})`}
+              </td>
+              <td>
+                <Actions>
+                  <div>
+                    <button type="button">
+                      <MdModeEdit color="#4D85EE" size={15} /> Editar
+                    </button>
+                  </div>
 
-                <div>
-                  <button type="button">
-                    <MdDeleteForever color="#DE3B3B" size={15} /> Excluir
-                  </button>
-                </div>
-              </Actions>
-            </td>
-          </tr>
-          <tr>
-            <td>#02</td>
-            <td>Ludwig van Beethoven</td>
-            <td>Rua Beethoven, 1729, Diadema - São Paulo</td>
-            <td>
-              <OptionsButton type="submit">
-                <MdMoreHoriz color="#C6C6C6" size={20} />
-              </OptionsButton>
-            </td>
-          </tr>
-          <tr>
-            <td>#02</td>
-            <td>Ludwig van Beethoven</td>
-            <td>Rua Beethoven, 1729, Diadema - São Paulo</td>
-            <td>
-              <OptionsButton type="submit">
-                <MdMoreHoriz color="#C6C6C6" size={20} />
-              </OptionsButton>
-            </td>
-          </tr>
-          <tr>
-            <td>#02</td>
-            <td>Ludwig van Beethoven</td>
-            <td>Rua Beethoven, 1729, Diadema - São Paulo</td>
-            <td>
-              <OptionsButton type="submit">
-                <MdMoreHoriz color="#C6C6C6" size={20} />
-              </OptionsButton>
-            </td>
-          </tr>
+                  <div>
+                    <button type="button">
+                      <MdDeleteForever color="#DE3B3B" size={15} /> Excluir
+                    </button>
+                  </div>
+                </Actions>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </Container>
