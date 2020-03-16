@@ -1,7 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { MdSearch, MdAdd, MdMoreHoriz } from 'react-icons/md';
+import Actions from '~/components/Actions';
+
+import {
+  MdSearch,
+  MdAdd,
+  MdMoreHoriz,
+  MdModeEdit,
+  MdDeleteForever,
+} from 'react-icons/md';
 
 import {
   Container,
@@ -40,9 +48,19 @@ export default function Recipients() {
             <td>Ludwig van Beethoven</td>
             <td>Rua Beethoven, 1729, Diadema - São Paulo</td>
             <td>
-              <OptionsButton type="submit">
-                <MdMoreHoriz color="#C6C6C6" size={20} />
-              </OptionsButton>
+              <Actions>
+                <div>
+                  <button type="button">
+                    <MdModeEdit color="#4D85EE" size={15} /> Editar
+                  </button>
+                </div>
+
+                <div>
+                  <button type="button">
+                    <MdDeleteForever color="#DE3B3B" size={15} /> Excluir
+                  </button>
+                </div>
+              </Actions>
             </td>
           </tr>
           <tr>

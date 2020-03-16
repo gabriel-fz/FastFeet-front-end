@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { MdSearch, MdAdd, MdMoreHoriz } from 'react-icons/md';
+import Actions from '~/components/Actions';
 
 import {
-  Container,
-  LineTools,
-  SearchTool,
-  Table,
-  OptionsButton,
-} from '~/styles/listsDefault';
+  MdSearch,
+  MdAdd,
+  MdVisibility,
+  MdModeEdit,
+  MdDeleteForever,
+} from 'react-icons/md';
+
+import { Container, LineTools, SearchTool, Table } from '~/styles/listsDefault';
 
 export default function Deliveries() {
   return (
@@ -46,9 +48,25 @@ export default function Deliveries() {
             <td>Santa Catarina</td>
             <td>Entregue</td>
             <td>
-              <OptionsButton type="submit">
-                <MdMoreHoriz color="#C6C6C6" size={20} />
-              </OptionsButton>
+              <Actions>
+                <div>
+                  <button type="button">
+                    <MdVisibility color="#8E5BE8" size={15} /> Visualizar
+                  </button>
+                </div>
+
+                <div>
+                  <button type="button">
+                    <MdModeEdit color="#4D85EE" size={15} /> Editar
+                  </button>
+                </div>
+
+                <div>
+                  <button type="button">
+                    <MdDeleteForever color="#DE3B3B" size={15} /> Excluir
+                  </button>
+                </div>
+              </Actions>
             </td>
           </tr>
           <tr>
@@ -59,9 +77,7 @@ export default function Deliveries() {
             <td>Santa Catarina</td>
             <td>Entregue</td>
             <td>
-              <OptionsButton type="submit">
-                <MdMoreHoriz color="#C6C6C6" size={20} />
-              </OptionsButton>
+              <Actions />
             </td>
           </tr>
           <tr>
@@ -72,9 +88,7 @@ export default function Deliveries() {
             <td>Santa Catarina</td>
             <td>Entregue</td>
             <td>
-              <OptionsButton type="submit">
-                <MdMoreHoriz color="#C6C6C6" size={20} />
-              </OptionsButton>
+              <Actions />
             </td>
           </tr>
           <tr>
@@ -85,9 +99,7 @@ export default function Deliveries() {
             <td>Santa Catarina</td>
             <td>Entregue</td>
             <td>
-              <OptionsButton type="submit">
-                <MdMoreHoriz color="#C6C6C6" size={20} />
-              </OptionsButton>
+              <Actions />
             </td>
           </tr>
         </tbody>
