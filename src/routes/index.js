@@ -42,9 +42,21 @@ export default function Routes() {
         isPrivate
       />
 
-      <Route path="/delivery/edit" component={DeliveriesEdit} isPrivate />
-      <Route path="/deliveryman/edit" component={DeliverymansEdit} isPrivate />
-      <Route path="/recipient/edit" component={RecipientsEdit} isPrivate />
+      <Route
+        path="/delivery/edit/:deliveryId"
+        component={DeliveriesEdit}
+        isPrivate
+      />
+      <Route
+        path="/deliveryman/edit/:deliverymanId"
+        component={DeliverymansEdit}
+        isPrivate
+      />
+      <Route
+        path="/recipient/edit/:recipientId"
+        component={RecipientsEdit}
+        isPrivate
+      />
     </Switch>
   );
 }

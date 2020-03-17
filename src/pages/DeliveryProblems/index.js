@@ -3,9 +3,9 @@ import api from '~/services/api';
 
 import Actions from '~/components/Actions';
 
-import { MdMoreHoriz, MdVisibility, MdDeleteForever } from 'react-icons/md';
+import { MdVisibility, MdDeleteForever } from 'react-icons/md';
 
-import { Container, Table, OptionsButton } from '~/styles/listsDefault';
+import { Container, Table } from '~/styles/listsDefault';
 
 export default function DeliveryProblem() {
   const [deliveryProblems, setDeliveryProblems] = useState([]);
@@ -55,22 +55,14 @@ export default function DeliveryProblem() {
           <tr>
             <td>#02</td>
             <td>Rua Beethoven, 1729, Diadema - São Paulo</td>
-            <td>
-              <OptionsButton type="submit">
-                <MdMoreHoriz color="#C6C6C6" size={20} />
-              </OptionsButton>
-            </td>
+            <td></td>
           </tr>
 
           {deliveryProblems.map(deliveryProblem => (
             <tr>
               <td>{deliveryProblem.id}</td>
               <td>{deliveryProblem.description}</td>
-              <td>
-                <OptionsButton type="submit">
-                  <MdMoreHoriz color="#C6C6C6" size={20} />
-                </OptionsButton>
-              </td>
+              <td></td>
             </tr>
           ))}
         </tbody>

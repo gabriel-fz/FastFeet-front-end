@@ -1,10 +1,13 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
 
 import AvatarInput from '~/components/AvatarInput';
+
+import { deliverymanRegister } from '~/store/modules/deliveryman/actions';
 
 import {
   Container,
@@ -15,9 +18,15 @@ import {
 } from '~/styles/registerDefault';
 
 export default function DeliveriesRegister() {
+  const dispatch = useDispatch();
+
+  function handleSubmit({ name, email, avatar_id }) {
+    dispatch(deliverymanRegister(name, email, avatar_id));
+  }
+
   return (
     <Container>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <EditHeader>
           <h2>Cadastro de entregadores</h2>
 
@@ -39,8 +48,8 @@ export default function DeliveriesRegister() {
 
           <Row>
             <section>
-              <label>Nome do produto</label>
-              <Input name="password" type="text" />
+              <label>Nome</label>
+              <Input name="name" type="text" />
             </section>
           </Row>
 

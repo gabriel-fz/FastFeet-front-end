@@ -56,9 +56,9 @@ export default function Deliverymans() {
               <td>
                 <Actions>
                   <div>
-                    <button type="button">
+                    <Link to={`/deliveryman/edit/${deliveryman.id}`}>
                       <MdModeEdit color="#4D85EE" size={15} /> Editar
-                    </button>
+                    </Link>
                   </div>
 
                   <div>

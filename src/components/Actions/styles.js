@@ -44,7 +44,8 @@ export const ActionsList = styled.div`
       border-top: 1px solid #eeeeee;
     }
 
-    button {
+    button,
+    a {
       font-size: 16px;
       border: 0;
       color: #999999;

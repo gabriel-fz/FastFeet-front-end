@@ -14,7 +14,8 @@ import {
   EditHeader,
 } from '~/styles/registerDefault';
 
-export default function DeliveriesEdit() {
+export default function DeliveriesEdit({ match }) {
+  const { deliverymanId } = match.params;
   return (
     <Container>
       <Form>
@@ -22,7 +23,7 @@ export default function DeliveriesEdit() {
           <h2>Edição de entregadores</h2>
 
           <div>
-            <Link to="/deliveries">
+            <Link to="/deliverymans">
               <MdChevronLeft color="#FFFFFF" size={20} />
               VOLTAR
             </Link>

@@ -26,6 +26,7 @@ export const Row = styled.div`
     label {
       font-weight: bold;
       color: #444444;
+      margin-bottom: 25px;
     }
 
     input {
@@ -35,13 +36,12 @@ export const Row = styled.div`
       margin: 9px 0;
       padding: 12px 15px;
       color: #999999;
+      -webkit-appearance: none;
     }
   }
 `;
 
-export const ButtonSave = styled.button.attrs(props => ({
-  type: 'submit',
-}))`
+export const ButtonSave = styled.button`
   width: 112px;
   height: 36px;
   background: #7d40e7;

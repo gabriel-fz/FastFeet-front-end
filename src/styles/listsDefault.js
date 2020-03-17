@@ -95,8 +95,3 @@ export const Table = styled.table`
     }
   }
 `;
-
-export const OptionsButton = styled.button`
-  background: #fff;
-  border: 0;
-`;
