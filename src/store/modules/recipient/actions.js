@@ -1,22 +1,13 @@
-export function recipientRegister(
-  name,
-  address,
-  address_number,
-  complement,
-  city,
-  state,
-  zip_code
-) {
+export function recipientRegister(data) {
   return {
     type: '@recipient_REGISTER_REQUEST',
-    payload: {
-      name,
-      address,
-      address_number,
-      complement,
-      city,
-      state,
-      zip_code,
-    },
+    payload: { data },
+  };
+}
+
+export function recipientUpdate(data) {
+  return {
+    type: '@recipient_UPDATE_REQUEST',
+    payload: { data },
   };
 }

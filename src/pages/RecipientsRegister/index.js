@@ -18,26 +18,8 @@ import {
 export default function RecipientsRegister() {
   const dispatch = useDispatch();
 
-  function handleSubmit({
-    name,
-    address,
-    address_number,
-    complement,
-    city,
-    state,
-    zip_code,
-  }) {
-    dispatch(
-      recipientRegister(
-        name,
-        address,
-        address_number,
-        complement,
-        city,
-        state,
-        zip_code
-      )
-    );
+  function handleSubmit(data) {
+    dispatch(recipientRegister(data));
   }
 
   return (

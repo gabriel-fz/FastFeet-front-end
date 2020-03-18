@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
+import api from '~/services/api';
 import { Link } from 'react-router-dom';
+
+import { recipientUpdate } from '~/store/modules/recipient/actions';
 
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
 
@@ -13,11 +17,27 @@ import {
 } from '~/styles/registerDefault';
 
 export default function RecipientsEdit({ match }) {
+  const dispatch = useDispatch();
   const [recipientId] = useState(match.params.recipientId);
+  const [dataRecipient, setDataRecipient] = useState();
+
+  useEffect(() => {
+    async function loadRecipient() {
+      const response = await api.get(`recipients/${recipientId}`);
+
+      setDataRecipient(response.data);
+    }
+    loadRecipient();
+  }, [recipientId]);
+
+  function handleSubmit(data) {
+    const recipient = Object.assign({ data: data }, { id: recipientId });
+    dispatch(recipientUpdate(recipient));
+  }
 
   return (
     <Container>
-      <Form>
+      <Form initialData={dataRecipient} onSubmit={handleSubmit}>
         <EditHeader>
           <h2>Cadastro de destinatário</h2>
 
@@ -45,34 +65,34 @@ export default function RecipientsEdit({ match }) {
           <Row>
             <section>
               <label>Rua</label>
-              <Input name="rua" type="text" size={55} />
+              <Input name="address" type="text" size={55} />
             </section>
 
             <section>
               <label>Número</label>
-              <Input name="numero" type="text" size={10} />
+              <Input name="address_number" type="text" size={10} />
             </section>
 
             <section>
               <label>Complemento</label>
-              <Input name="complemento" type="text" size={10} />
+              <Input name="complement" type="text" size={10} />
             </section>
           </Row>
 
           <Row>
             <section>
               <label>Cidade</label>
-              <Input name="cidade" type="text" />
+              <Input name="city" type="text" />
             </section>
 
             <section>
               <label>Estado</label>
-              <Input name="estado" type="text" />
+              <Input name="state" type="text" />
             </section>
 
             <section>
               <label>CEP</label>
-              <Input name="cep" type="text" />
+              <Input name="zip_code" type="text" />
             </section>
           </Row>
         </Content>
