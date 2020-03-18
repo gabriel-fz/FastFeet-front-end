@@ -14,7 +14,8 @@ export function* registerDelivery({ payload }) {
       product,
     });
 
-    history.push('/');
+    toast.success('Entrega cadastrada com sucesso');
+    history.push('/deliveries');
   } catch (err) {
     toast.error('Algo deu errado com o cadastro');
   }

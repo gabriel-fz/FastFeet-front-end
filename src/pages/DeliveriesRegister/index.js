@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
-import AsyncSelect from 'react-select/async';
 import { Link } from 'react-router-dom';
-import api from '~/services/api';
 
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
-
 import {
   Container,
   Content,
@@ -18,45 +15,14 @@ import {
 import { registerRequest } from '~/store/modules/delivery/actions';
 
 import RecipientInput from './RecipientInput';
+import DeliverymanInput from './DeliverymanInput';
 
 export default function DeliveriesRegister() {
   const dispatch = useDispatch();
-  const [deliverymans, setDeliverymans] = useState([]);
 
   function handleSubmit({ recipient_id, deliveryman_id, product }) {
     dispatch(registerRequest(recipient_id, deliveryman_id, product));
   }
-
-  useEffect(() => {
-    async function loadDeliverymans() {
-      const response = await api.get('deliverymans');
-
-      const data = response.data.map(deliveryman => ({
-        value: deliveryman.id,
-        label: deliveryman.name,
-      }));
-
-      setDeliverymans(data);
-    }
-    loadDeliverymans();
-  }, []);
-
-  const handleInputChange = newValue => {
-    const inputValue = newValue.replace(/\W/g, '');
-    return inputValue;
-  };
-
-  const filterDeliverymans = inputValue => {
-    return deliverymans.filter(i =>
-      i.label.toLowerCase().includes(inputValue.toLowerCase())
-    );
-  };
-
-  const loadDeliverymans = (inputValue, callback) => {
-    setTimeout(() => {
-      callback(filterDeliverymans(inputValue));
-    }, 100);
-  };
 
   const customStyles = {
     singleValue: styles => {
@@ -108,27 +74,12 @@ export default function DeliveriesRegister() {
           <Row>
             <section>
               <label>Destinatário</label>
-              {/**
-                <RecipientInput
-                name="recipient_id"
-                placeholder=""
-                noOptionsMessage={() => 'Nenhum destinatario encontrado'}
-                />
-                */}
+              <RecipientInput name="recipient_id" styles={customStyles} />
             </section>
 
             <section>
               <label>Entregador</label>
-              <AsyncSelect
-                label="deliveryman_id"
-                id="deliveryman_id"
-                name="deliveryman_id"
-                styles={customStyles}
-                loadOptions={loadDeliverymans}
-                onInputChange={handleInputChange}
-                noOptionsMessage={() => 'Nenhum entregador encontrado'}
-                placeholder=""
-              />
+              <DeliverymanInput name="deliveryman_id" styles={customStyles} />
             </section>
           </Row>
 

@@ -4,27 +4,27 @@ import api from '~/services/api';
 import { useField } from '@rocketseat/unform';
 
 export default function RecipientInput({ ...res }) {
-  const [recipients, setRecipients] = useState([]);
+  const [deliverymans, setDeliverymans] = useState([]);
   const selectRef = useRef(null);
-  const { registerField } = useField('recipient');
+  const { registerField } = useField('deliveryman');
 
   useEffect(() => {
-    async function loadRecipients() {
-      const response = await api.get('recipients');
+    async function loadDeliverymans() {
+      const response = await api.get('deliverymans');
 
-      const data = response.data.map(recipient => ({
-        value: recipient.id,
-        label: recipient.name,
+      const data = response.data.map(deliveryman => ({
+        value: deliveryman.id,
+        label: deliveryman.name,
       }));
 
-      setRecipients(data);
+      setDeliverymans(data);
     }
-    loadRecipients();
+    loadDeliverymans();
   }, []);
 
   useEffect(() => {
     registerField({
-      name: 'recipient_id',
+      name: 'deliveryman_id',
       ref: selectRef.current,
       path: 'select.state.value.value',
     });
@@ -35,29 +35,30 @@ export default function RecipientInput({ ...res }) {
     return inputValue;
   };
 
-  const filterRecipients = inputValue => {
-    return recipients.filter(i =>
+  const filterDeliverymans = inputValue => {
+    return deliverymans.filter(i =>
       i.label.toLowerCase().includes(inputValue.toLowerCase())
     );
   };
 
-  const loadRecipients = (inputValue, callback) => {
+  const loadDeliverymans = (inputValue, callback) => {
     setTimeout(() => {
-      callback(filterRecipients(inputValue));
+      callback(filterDeliverymans(inputValue));
     }, 100);
   };
 
   return (
-    <label htmlFor="recipient">
+    <label htmlFor="deliveryman">
       <AsyncSelect
         cacheOptions
-        id="recipient"
+        type="text"
+        id="deliveryman"
         ref={selectRef}
         classNamePrefix="react-select"
-        loadOptions={loadRecipients}
+        loadOptions={loadDeliverymans}
         onInputChange={handleInputChange}
         placeholder=""
-        noOptionsMessage={() => 'Nenhum destinatario encontrado'}
+        noOptionsMessage={() => 'Nenhum entregador encontrado'}
         {...res}
       />
     </label>
