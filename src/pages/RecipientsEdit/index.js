@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +12,9 @@ import {
   EditHeader,
 } from '~/styles/registerDefault';
 
-export default function RecipientsEdit() {
+export default function RecipientsEdit({ match }) {
+  const [recipientId] = useState(match.params.recipientId);
+
   return (
     <Container>
       <Form>

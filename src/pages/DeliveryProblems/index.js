@@ -32,37 +32,26 @@ export default function DeliveryProblem() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>#01</td>
-            <td>Rua Beethoven, 1729, Diadema - São Paulo</td>
-            <td>
-              <Actions>
-                <div>
-                  <button type="button">
-                    <MdVisibility color="#4D85EE" size={15} /> Visualizar
-                  </button>
-                </div>
-
-                <div>
-                  <button type="button">
-                    <MdDeleteForever color="#DE3B3B" size={15} /> Cancelar
-                    encomenda
-                  </button>
-                </div>
-              </Actions>
-            </td>
-          </tr>
-          <tr>
-            <td>#02</td>
-            <td>Rua Beethoven, 1729, Diadema - São Paulo</td>
-            <td></td>
-          </tr>
-
           {deliveryProblems.map(deliveryProblem => (
             <tr>
               <td>{deliveryProblem.id}</td>
               <td>{deliveryProblem.description}</td>
-              <td></td>
+              <td>
+                <Actions>
+                  <div>
+                    <button type="button">
+                      <MdVisibility color="#4D85EE" size={15} /> Visualizar
+                    </button>
+                  </div>
+
+                  <div>
+                    <button type="button">
+                      <MdDeleteForever color="#DE3B3B" size={15} /> Cancelar
+                      encomenda
+                    </button>
+                  </div>
+                </Actions>
+              </td>
             </tr>
           ))}
         </tbody>

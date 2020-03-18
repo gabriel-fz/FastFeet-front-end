@@ -1,8 +1,11 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
+
+import { recipientRegister } from '~/store/modules/recipient/actions';
 
 import {
   Container,
@@ -13,9 +16,33 @@ import {
 } from '~/styles/registerDefault';
 
 export default function RecipientsRegister() {
+  const dispatch = useDispatch();
+
+  function handleSubmit({
+    name,
+    address,
+    address_number,
+    complement,
+    city,
+    state,
+    zip_code,
+  }) {
+    dispatch(
+      recipientRegister(
+        name,
+        address,
+        address_number,
+        complement,
+        city,
+        state,
+        zip_code
+      )
+    );
+  }
+
   return (
     <Container>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <EditHeader>
           <h2>Cadastro de destinatário</h2>
 
@@ -43,34 +70,34 @@ export default function RecipientsRegister() {
           <Row>
             <section>
               <label>Rua</label>
-              <Input name="rua" type="text" size={55} />
+              <Input name="address" type="text" size={55} />
             </section>
 
             <section>
               <label>Número</label>
-              <Input name="numero" type="text" size={10} />
+              <Input name="address_number" type="text" size={10} />
             </section>
 
             <section>
               <label>Complemento</label>
-              <Input name="complemento" type="text" size={10} />
+              <Input name="complement" type="text" size={10} />
             </section>
           </Row>
 
           <Row>
             <section>
               <label>Cidade</label>
-              <Input name="cidade" type="text" />
+              <Input name="city" type="text" />
             </section>
 
             <section>
               <label>Estado</label>
-              <Input name="estado" type="text" />
+              <Input name="state" type="text" />
             </section>
 
             <section>
               <label>CEP</label>
-              <Input name="cep" type="text" />
+              <Input name="zip_code" type="text" />
             </section>
           </Row>
         </Content>

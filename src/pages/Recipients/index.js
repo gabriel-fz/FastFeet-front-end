@@ -54,9 +54,9 @@ export default function Recipients() {
               <td>
                 <Actions>
                   <div>
-                    <button type="button">
+                    <Link to={`/recipient/edit/${recipient.id}`}>
                       <MdModeEdit color="#4D85EE" size={15} /> Editar
-                    </button>
+                    </Link>
                   </div>
 
                   <div>

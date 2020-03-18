@@ -29,6 +29,7 @@ export default function DeliveriesRegister() {
       return {
         ...styles,
         margin: '15px 0px',
+        color: '#999999',
       };
     },
     valueContainer: styles => {

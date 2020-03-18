@@ -95,9 +95,9 @@ export default function Deliveries() {
                     </button>
                   </div>
                   <div>
-                    <button type="button">
+                    <Link to={`/delivery/edit/${delivery.id}`}>
                       <MdModeEdit color="#4D85EE" size={15} /> Editar
-                    </button>
+                    </Link>
                   </div>
                   <div>
                     <button type="button">

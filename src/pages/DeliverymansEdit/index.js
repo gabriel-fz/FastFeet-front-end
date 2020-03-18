@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 
@@ -15,12 +15,12 @@ import {
 } from '~/styles/registerDefault';
 
 export default function DeliveriesEdit({ match }) {
-  const { deliverymanId } = match.params;
+  const [deliverymanId] = useState(match.params.deliverymanId);
   return (
     <Container>
       <Form>
         <EditHeader>
-          <h2>Edição de entregadores</h2>
+          <h2>Edição de entregadores {deliverymanId}</h2>
 
           <div>
             <Link to="/deliverymans">
