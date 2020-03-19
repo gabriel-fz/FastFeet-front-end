@@ -4,13 +4,15 @@ import api from '~/services/api';
 
 import { InputAvatar } from './styles';
 
-import avatar from '~/assets/adicionar-foto.png';
+import avatarInputDefault from '~/assets/adicionar-foto.png';
 
-export default function AvatarInput() {
+export default function AvatarInput(props) {
   const { registerField } = useField('avatar');
 
-  const [file, setFile] = useState();
-  const [preview, setPreview] = useState();
+  const [file, setFile] = useState(props.dataAvatarId && props.dataAvatarId);
+  const [preview, setPreview] = useState(
+    props.dataAvatarUrl && props.dataAvatarUrl
+  );
 
   const ref = useRef();
 
@@ -39,7 +41,7 @@ export default function AvatarInput() {
 
   return (
     <InputAvatar htmlFor="avatar">
-      <img src={preview || avatar} alt="" />
+      <img src={preview || avatarInputDefault} alt="" />
 
       <input
         type="file"

@@ -31,7 +31,7 @@ export default function DeliveriesRegister() {
           <h2>Cadastro de entregadores</h2>
 
           <div>
-            <Link to="/deliveries">
+            <Link to="/deliverymans">
               <MdChevronLeft color="#FFFFFF" size={20} />
               VOLTAR
             </Link>
