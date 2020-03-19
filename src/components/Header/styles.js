@@ -44,17 +44,19 @@ export const Content = styled.div`
 `;
 
 export const Profile = styled.div`
+  display: flex;
+  flex-direction: column;
   text-align: right;
   margin-right: 30px;
 
   strong {
-    display: block;
     color: #666666;
   }
 
-  a {
-    display: block;
+  button {
     margin-top: 5px;
     color: #de3b3b;
+    background: #fff;
+    border: none;
   }
 `;
