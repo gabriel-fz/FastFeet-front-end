@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
-import api from '~/services/api';
 import { Link } from 'react-router-dom';
 
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
@@ -16,19 +16,8 @@ import {
 import RecipientInput from './RecipientInput';
 import DeliverymanInput from './DeliverymanInput';
 
-export default function DeliveriesEdit({ match }) {
-  const [deliveryId] = useState(match.params.deliveryId);
-  const [dataDelivery, setDataDelivery] = useState();
-
-  useEffect(() => {
-    async function loadDelivery() {
-      const response = await api.get(`deliveries/${deliveryId}`);
-
-      setDataDelivery(response.data);
-    }
-
-    loadDelivery();
-  }, [deliveryId]);
+export default function DeliveriesEdit() {
+  const dataDelivery = useSelector(state => state.delivery.data);
 
   const customStyles = {
     singleValue: styles => {

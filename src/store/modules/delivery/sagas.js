@@ -21,6 +21,10 @@ export function* registerDelivery({ payload }) {
   }
 }
 
+export function deliveryUpdateRequest() {
+  history.push('/delivery/edit');
+}
+
 export function* deliveryDelete({ payload }) {
   try {
     const { id } = payload;
@@ -35,5 +39,6 @@ export function* deliveryDelete({ payload }) {
 
 export default all([
   takeLatest('@register/REGISTER_DELIVERY_REQUEST', registerDelivery),
+  takeLatest('@delivery_UPDATE_REQUEST', deliveryUpdateRequest),
   takeLatest('@delivery_DELETE', deliveryDelete),
 ]);

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Form, Input } from '@rocketseat/unform';
 import { useDispatch, useSelector } from 'react-redux';
+import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 
 import { deliverymanUpdate } from '~/store/modules/deliveryman/actions';

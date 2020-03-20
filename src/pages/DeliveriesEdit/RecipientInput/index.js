@@ -5,10 +5,10 @@ import { useField } from '@rocketseat/unform';
 
 import PropTypes from 'prop-types';
 
-export default function RecipientInput({ name, valueId, ...rest }) {
+export default function RecipientInput({ ...rest }) {
   const [recipients, setRecipients] = useState([]);
   const selectRef = useRef(null);
-  const { fieldName, registerField } = useField(name);
+  const { fieldName, defaultValue, registerField } = useField('recipient');
 
   useEffect(() => {
     async function loadRecipients() {
@@ -25,7 +25,7 @@ export default function RecipientInput({ name, valueId, ...rest }) {
 
   useEffect(() => {
     registerField({
-      name: 'fieldName',
+      name: 'recipient_id',
       ref: selectRef.current,
       path: 'select.state.value.value',
       getValue: ref => {
@@ -61,11 +61,12 @@ export default function RecipientInput({ name, valueId, ...rest }) {
   };
 
   return (
-    <label htmlFor={fieldName}>
+    <label htmlFor="deliveryman">
       <AsyncSelect
         name={fieldName}
         aria-label={fieldName}
         ref={selectRef}
+        defaultValue={defaultValue}
         classNamePrefix="react-select"
         loadOptions={loadRecipients}
         onInputChange={handleInputChange}

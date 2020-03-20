@@ -7,7 +7,10 @@ import Actions from '~/components/Actions';
 
 import Badges from './Badges';
 
-import { deliveryDelete } from '~/store/modules/delivery/actions';
+import {
+  deliveryUpdateRequest,
+  deliveryDelete,
+} from '~/store/modules/delivery/actions';
 
 import {
   MdSearch,
@@ -53,6 +56,10 @@ export default function Deliveries() {
       return 'PENDENTE';
     }
     return 'RETIRADA';
+  }
+
+  function handleEdit(delivery) {
+    dispatch(deliveryUpdateRequest(delivery));
   }
 
   function handleDelete(id) {
@@ -106,9 +113,9 @@ export default function Deliveries() {
                     </button>
                   </div>
                   <div>
-                    <Link to={`/delivery/edit/${delivery.id}`}>
+                    <button type="submit" onClick={() => handleEdit(delivery)}>
                       <MdModeEdit color="#4D85EE" size={15} /> Editar
-                    </Link>
+                    </button>
                   </div>
                   <div>
                     <button

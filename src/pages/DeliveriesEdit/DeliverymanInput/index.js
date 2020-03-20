@@ -3,10 +3,10 @@ import AsyncSelect from 'react-select/async';
 import api from '~/services/api';
 import { useField } from '@rocketseat/unform';
 
-export default function RecipientInput({ ...res }) {
+export default function RecipientInput({ ...rest }) {
   const [deliverymans, setDeliverymans] = useState([]);
   const selectRef = useRef(null);
-  const { registerField } = useField('deliveryman');
+  const { defaultValue, registerField } = useField('deliveryman');
 
   useEffect(() => {
     async function loadDeliverymans() {
@@ -54,12 +54,13 @@ export default function RecipientInput({ ...res }) {
         type="text"
         id="deliveryman"
         ref={selectRef}
+        defaultValue={defaultValue}
         classNamePrefix="react-select"
         loadOptions={loadDeliverymans}
         onInputChange={handleInputChange}
         placeholder=""
         noOptionsMessage={() => 'Nenhum entregador encontrado'}
-        {...res}
+        {...rest}
       />
     </label>
   );
