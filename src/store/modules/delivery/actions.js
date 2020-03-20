@@ -4,3 +4,10 @@ export function registerRequest(recipient_id, deliveryman_id, product) {
     payload: { recipient_id, deliveryman_id, product },
   };
 }
+
+export function deliveryDelete(id) {
+  return {
+    type: '@delivery_DELETE',
+    payload: { id },
+  };
+}

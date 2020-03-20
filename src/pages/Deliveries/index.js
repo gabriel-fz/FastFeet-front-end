@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '~/services/api';
+import { useDispatch } from 'react-redux';
 
 import Actions from '~/components/Actions';
 
 import Badges from './Badges';
+
+import { deliveryDelete } from '~/store/modules/delivery/actions';
 
 import {
   MdSearch,
@@ -17,6 +20,7 @@ import {
 import { Container, LineTools, SearchTool, Table } from '~/styles/listsDefault';
 
 export default function Deliveries() {
+  const dispatch = useDispatch();
   const [deliveries, setDeliveries] = useState([]);
 
   useEffect(() => {
@@ -49,6 +53,13 @@ export default function Deliveries() {
       return 'PENDENTE';
     }
     return 'RETIRADA';
+  }
+
+  function handleDelete(id) {
+    if (window.confirm('Deseja mesmo daletar o entregador?')) {
+      dispatch(deliveryDelete(id));
+      setDeliveries(deliveries);
+    }
   }
 
   return (
@@ -100,7 +111,10 @@ export default function Deliveries() {
                     </Link>
                   </div>
                   <div>
-                    <button type="button">
+                    <button
+                      type="submit"
+                      onClick={() => handleDelete(delivery.id)}
+                    >
                       <MdDeleteForever color="#DE3B3B" size={15} /> Excluir
                     </button>
                   </div>
