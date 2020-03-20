@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import api from '~/services/api';
+import { useDispatch } from 'react-redux';
 
 import Actions from '~/components/Actions';
 
 import { MdVisibility, MdDeleteForever } from 'react-icons/md';
-
 import { Container, Table } from '~/styles/listsDefault';
 
+import { deliveryCancel } from '~/store/modules/deliveryProblem/actions';
+
 export default function DeliveryProblem() {
+  const dispatch = useDispatch();
   const [deliveryProblems, setDeliveryProblems] = useState([]);
 
   useEffect(() => {
@@ -18,7 +21,14 @@ export default function DeliveryProblem() {
     }
 
     loadDeliveryProblems();
-  }, []);
+  }, [deliveryProblems]);
+
+  function handleCancel(id) {
+    if (window.confirm('Deseja mesmo cancelar a entrega?')) {
+      dispatch(deliveryCancel(id));
+      setDeliveryProblems(deliveryProblems);
+    }
+  }
 
   return (
     <Container>
@@ -45,7 +55,13 @@ export default function DeliveryProblem() {
                   </div>
 
                   <div>
-                    <button type="button">
+                    <button
+                      type="submit"
+                      onClick={() => handleCancel(deliveryProblem.id)}
+                      disabled={
+                        deliveryProblem.delivery.canceled_at ? true : false
+                      }
+                    >
                       <MdDeleteForever color="#DE3B3B" size={15} /> Cancelar
                       encomenda
                     </button>

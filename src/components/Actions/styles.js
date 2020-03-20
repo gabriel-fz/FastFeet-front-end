@@ -54,6 +54,11 @@ export const ActionsList = styled.div`
       justify-content: center;
       align-items: center;
 
+      &[disabled] {
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+
       svg {
         margin-right: 10px;
       }
