@@ -34,8 +34,14 @@ export const Row = styled.div`
       border: 1px solid #dddddd;
       border-radius: 4px;
       padding: 12px 15px;
-      color: #999999;
+      color: #999999 !important;
       -webkit-appearance: none;
+    }
+
+    span {
+      color: red;
+      font-weight: bold;
+      margin-top: 5px;
     }
   }
 `;

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 export default function RecipientInput({ ...rest }) {
   const [recipients, setRecipients] = useState([]);
   const selectRef = useRef(null);
-  const { fieldName, defaultValue, registerField } = useField('recipient');
+  const { defaultValue, registerField } = useField('recipient');
 
   useEffect(() => {
     async function loadRecipients() {
@@ -61,15 +61,17 @@ export default function RecipientInput({ ...rest }) {
   };
 
   return (
-    <label htmlFor="deliveryman">
+    <label htmlFor="recipient">
       <AsyncSelect
-        name={fieldName}
-        aria-label={fieldName}
+        cacheOptions
+        type="text"
+        id="recipient"
         ref={selectRef}
         defaultValue={defaultValue}
         classNamePrefix="react-select"
         loadOptions={loadRecipients}
         onInputChange={handleInputChange}
+        noOptionsMessage={() => 'Nenhum entregador encontrado'}
         {...rest}
       />
     </label>

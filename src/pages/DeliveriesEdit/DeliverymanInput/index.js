@@ -58,7 +58,6 @@ export default function RecipientInput({ ...rest }) {
         classNamePrefix="react-select"
         loadOptions={loadDeliverymans}
         onInputChange={handleInputChange}
-        placeholder=""
         noOptionsMessage={() => 'Nenhum entregador encontrado'}
         {...rest}
       />

@@ -2,11 +2,11 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
-
-import { MdChevronLeft, MdCheck } from 'react-icons/md';
+import * as Yup from 'yup';
 
 import { recipientRegister } from '~/store/modules/recipient/actions';
 
+import { MdChevronLeft, MdCheck } from 'react-icons/md';
 import {
   Container,
   Content,
@@ -14,6 +14,18 @@ import {
   ButtonSave,
   EditHeader,
 } from '~/styles/registerDefault';
+
+const schema = Yup.object().shape({
+  name: Yup.string().required('Nome obrigatório'),
+  address: Yup.string().required('Endereço obrigatório'),
+  address_number: Yup.string('Número obrigatório').required(
+    'Número obrigatório'
+  ),
+  complement: Yup.string().required('Complemento obrigatório'),
+  state: Yup.string().required('Estado obrigatório'),
+  city: Yup.string().required('Cidade obrigatório'),
+  zip_code: Yup.string().required('CEP obrigatório'),
+});
 
 export default function RecipientsRegister() {
   const dispatch = useDispatch();
@@ -24,7 +36,7 @@ export default function RecipientsRegister() {
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
+      <Form schema={schema} onSubmit={handleSubmit}>
         <EditHeader>
           <h2>Cadastro de destinatário</h2>
 

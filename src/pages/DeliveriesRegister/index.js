@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
 import {
@@ -16,6 +17,10 @@ import { registerRequest } from '~/store/modules/delivery/actions';
 
 import RecipientInput from './RecipientInput';
 import DeliverymanInput from './DeliverymanInput';
+
+const schema = Yup.object().shape({
+  product: Yup.string().required('Nome obrigatório'),
+});
 
 export default function DeliveriesRegister() {
   const dispatch = useDispatch();
@@ -54,7 +59,7 @@ export default function DeliveriesRegister() {
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
+      <Form schema={schema} onSubmit={handleSubmit}>
         <EditHeader>
           <h2>Cadastro de encomendas</h2>
 

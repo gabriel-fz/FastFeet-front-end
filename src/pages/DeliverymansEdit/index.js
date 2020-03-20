@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import { deliverymanUpdate } from '~/store/modules/deliveryman/actions';
 
@@ -14,6 +15,13 @@ import {
   ButtonSave,
   EditHeader,
 } from '~/styles/registerDefault';
+
+const schema = Yup.object().shape({
+  name: Yup.string().required('Nome obrigatório'),
+  email: Yup.string()
+    .email()
+    .required('Email obrigatório'),
+});
 
 export default function DeliveriesEdit() {
   const dispatch = useDispatch();
@@ -30,7 +38,11 @@ export default function DeliveriesEdit() {
 
   return (
     <Container>
-      <Form initialData={dataDeliveryman} onSubmit={handleSubmit}>
+      <Form
+        schema={schema}
+        initialData={dataDeliveryman}
+        onSubmit={handleSubmit}
+      >
         <EditHeader>
           <h2>Edição de entregador</h2>
 
