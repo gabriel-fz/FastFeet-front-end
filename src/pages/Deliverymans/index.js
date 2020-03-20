@@ -4,6 +4,7 @@ import api from '~/services/api';
 import { useDispatch } from 'react-redux';
 
 import Actions from '~/components/Actions';
+import avatarUser from '~/assets/avatar-user.png';
 
 import { MdSearch, MdAdd, MdModeEdit, MdDeleteForever } from 'react-icons/md';
 import { Container, LineTools, SearchTool, Table } from '~/styles/listsDefault';
@@ -21,7 +22,12 @@ export default function Deliverymans() {
     async function loadDeliverymans() {
       const response = await api.get('deliverymans');
 
-      setDeliverymans(response.data);
+      const data = response.data.map(deliveryman => ({
+        ...deliveryman,
+        avatarUrl: deliveryman.avatar ? deliveryman.avatar.url : avatarUser,
+      }));
+
+      setDeliverymans(data);
     }
     loadDeliverymans();
   }, [deliverymans]);
@@ -66,7 +72,9 @@ export default function Deliverymans() {
           {deliverymans.map(deliveryman => (
             <tr>
               <td>{deliveryman.id}</td>
-              <td>TS</td>
+              <td>
+                <img src={deliveryman.avatarUrl} alt="" />
+              </td>
               <td>{deliveryman.name}</td>
               <td>{deliveryman.email}</td>
               <td>

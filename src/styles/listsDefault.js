@@ -88,6 +88,12 @@ export const Table = styled.table`
       color: #666666;
       padding: 12px;
 
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
+
       &:last-child {
         text-align: right;
         padding-right: 23px;
