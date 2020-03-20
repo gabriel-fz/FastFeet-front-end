@@ -88,6 +88,13 @@ export const Table = styled.table`
       color: #666666;
       padding: 12px;
 
+      p {
+        white-space: nowrap;
+        max-width: 825px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       img {
         width: 30px;
         height: 30px;

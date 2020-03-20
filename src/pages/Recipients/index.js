@@ -57,7 +57,9 @@ export default function Recipients() {
               <td>{recipient.id}</td>
               <td>{recipient.name}</td>
               <td>
-                {`${recipient.address}, ${recipient.address_number}, ${recipient.city} - ${recipient.state} (${recipient.complement})`}
+                <p>
+                  {`${recipient.address}, ${recipient.address_number}, ${recipient.city} - ${recipient.state} (${recipient.complement})`}
+                </p>
               </td>
               <td>
                 <Actions>

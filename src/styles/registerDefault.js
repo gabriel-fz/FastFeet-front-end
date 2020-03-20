@@ -26,14 +26,13 @@ export const Row = styled.div`
     label {
       font-weight: bold;
       color: #444444;
-      margin-bottom: 25px;
+      margin-bottom: 10px;
     }
 
     input {
       height: 45px;
       border: 1px solid #dddddd;
       border-radius: 4px;
-      margin: 9px 0;
       padding: 12px 15px;
       color: #999999;
       -webkit-appearance: none;

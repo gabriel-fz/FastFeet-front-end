@@ -56,7 +56,7 @@ export default function RecipientInput({ ...res }) {
         classNamePrefix="react-select"
         loadOptions={loadRecipients}
         onInputChange={handleInputChange}
-        placeholder=""
+        placeholder="Digite o nome do destinatário"
         noOptionsMessage={() => 'Nenhum destinatario encontrado'}
         {...res}
       />

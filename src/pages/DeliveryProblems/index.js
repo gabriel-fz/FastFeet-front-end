@@ -56,7 +56,9 @@ export default function DeliveryProblem() {
           {deliveryProblems.map(deliveryProblem => (
             <tr>
               <td>{deliveryProblem.id}</td>
-              <td>{deliveryProblem.description}</td>
+              <td>
+                <p>{deliveryProblem.description}</p>
+              </td>
               <td>
                 <Actions>
                   <div>

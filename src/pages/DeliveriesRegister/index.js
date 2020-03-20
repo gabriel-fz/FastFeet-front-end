@@ -59,7 +59,7 @@ export default function DeliveriesRegister() {
           <h2>Cadastro de encomendas</h2>
 
           <div>
-            <Link to="/deliverymans">
+            <Link to="/deliveries">
               <MdChevronLeft color="#FFFFFF" size={20} />
               VOLTAR
             </Link>
