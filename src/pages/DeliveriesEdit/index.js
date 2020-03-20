@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 
-import { MdChevronLeft, MdCheck } from 'react-icons/md';
+import { deliveryUpdate } from '~/store/modules/delivery/actions';
 
+import { MdChevronLeft, MdCheck } from 'react-icons/md';
 import {
   Container,
   Content,
@@ -17,7 +18,14 @@ import RecipientInput from './RecipientInput';
 import DeliverymanInput from './DeliverymanInput';
 
 export default function DeliveriesEdit() {
+  const dispatch = useDispatch();
   const dataDelivery = useSelector(state => state.delivery.data);
+
+  function handleSubmit(data) {
+    const delivery = Object.assign({ data: data }, { id: dataDelivery.id });
+
+    dispatch(deliveryUpdate(delivery));
+  }
 
   const customStyles = {
     singleValue: styles => {
@@ -49,7 +57,7 @@ export default function DeliveriesEdit() {
 
   return (
     <Container>
-      <Form initialData={dataDelivery}>
+      <Form initialData={dataDelivery} onSubmit={handleSubmit}>
         <EditHeader>
           <h2>Edição de encomendas</h2>
 

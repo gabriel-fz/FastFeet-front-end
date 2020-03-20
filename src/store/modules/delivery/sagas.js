@@ -25,6 +25,18 @@ export function deliveryUpdateRequest() {
   history.push('/delivery/edit');
 }
 
+export function* deliveryUpdate({ payload }) {
+  try {
+    const { data, id } = payload.data;
+
+    yield call(api.put, `deliveries/${id}`, data);
+
+    toast.success('Entrega atualizada com sucesso!');
+  } catch (err) {
+    toast.error('Não foi possível atualizar a entrega');
+  }
+}
+
 export function* deliveryDelete({ payload }) {
   try {
     const { id } = payload;
@@ -40,5 +52,6 @@ export function* deliveryDelete({ payload }) {
 export default all([
   takeLatest('@register/REGISTER_DELIVERY_REQUEST', registerDelivery),
   takeLatest('@delivery_UPDATE_REQUEST', deliveryUpdateRequest),
+  takeLatest('@delivery_UPDATE', deliveryUpdate),
   takeLatest('@delivery_DELETE', deliveryDelete),
 ]);

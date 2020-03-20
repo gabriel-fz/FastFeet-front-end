@@ -12,6 +12,13 @@ export function deliveryUpdateRequest(delivery) {
   };
 }
 
+export function deliveryUpdate(data) {
+  return {
+    type: '@delivery_UPDATE',
+    payload: { data },
+  };
+}
+
 export function deliveryDelete(id) {
   return {
     type: '@delivery_DELETE',
