@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '~/services/api';
 import { useDispatch } from 'react-redux';
+import { Form, Input } from '@rocketseat/unform';
 
 import Actions from '~/components/Actions';
 import avatarUser from '~/assets/avatar-user.png';
 
 import { MdSearch, MdAdd, MdModeEdit, MdDeleteForever } from 'react-icons/md';
-import { Container, LineTools, SearchTool, Table } from '~/styles/listsDefault';
+import { Container, LineTools, Table } from '~/styles/listsDefault';
 
 import {
   deliverymanUpdateRequest,
@@ -17,10 +18,13 @@ import {
 export default function Deliverymans() {
   const dispatch = useDispatch();
   const [deliverymans, setDeliverymans] = useState([]);
+  const [searchDeliverymans, setSearchDeliverymans] = useState();
 
   useEffect(() => {
     async function loadDeliverymans() {
-      const response = await api.get('deliverymans');
+      const response = await api.get('deliverymans', {
+        params: { name: searchDeliverymans },
+      });
 
       const data = response.data.map(deliveryman => ({
         ...deliveryman,
@@ -30,7 +34,7 @@ export default function Deliverymans() {
       setDeliverymans(data);
     }
     loadDeliverymans();
-  }, [deliverymans]);
+  }, [deliverymans, searchDeliverymans]);
 
   function handleEdit(deliveryman) {
     dispatch(deliverymanUpdateRequest(deliveryman));
@@ -43,15 +47,23 @@ export default function Deliverymans() {
     }
   }
 
+  function handleSubmit({ search }) {
+    setSearchDeliverymans(search);
+  }
+
   return (
     <Container>
       <strong>Gerenciando entregadores</strong>
 
       <LineTools>
-        <SearchTool>
+        <Form onSubmit={handleSubmit}>
           <MdSearch color="#999999" size={25} />
-          <input type="search" placeholder="Buscar por entregadores" />
-        </SearchTool>
+          <Input
+            type="text"
+            name="search"
+            placeholder="Buscar por entregadores"
+          />
+        </Form>
 
         <Link to="/deliveryman/register">
           <MdAdd color="#fff" size={23} /> CADASTRAR

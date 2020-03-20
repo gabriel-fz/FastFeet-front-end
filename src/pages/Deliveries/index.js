@@ -4,6 +4,7 @@ import api from '~/services/api';
 import { useDispatch } from 'react-redux';
 import Modal from 'react-modal';
 import { parseISO, format } from 'date-fns';
+import { Form, Input } from '@rocketseat/unform';
 
 import Actions from '~/components/Actions';
 import Badges from './Badges';
@@ -17,7 +18,6 @@ import {
 import {
   Container,
   LineTools,
-  SearchTool,
   Table,
   customStyles,
 } from '~/styles/listsDefault';
@@ -32,10 +32,13 @@ export default function Deliveries() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const [deliveries, setDeliveries] = useState([]);
+  const [searchDeliveries, setSearchDeliveries] = useState();
 
   useEffect(() => {
     async function loadDeliveries() {
-      const response = await api.get('deliveries');
+      const response = await api.get('deliveries', {
+        params: { name: searchDeliveries },
+      });
 
       const data = response.data.map(delivery => ({
         ...delivery,
@@ -45,14 +48,10 @@ export default function Deliveries() {
           delivery.canceled_at
         ),
       }));
-
-      console.log(data);
-
       setDeliveries(data);
     }
-
     loadDeliveries();
-  }, []);
+  }, [searchDeliveries]);
 
   function checkStatus(start_date, end_date, canceled_at) {
     if (canceled_at) {
@@ -100,14 +99,22 @@ export default function Deliveries() {
     setIsOpen(false);
   }
 
+  function handleSubmit({ search }) {
+    setSearchDeliveries(search);
+  }
+
   return (
     <Container>
       <strong>Gerenciamento de encomendas</strong>
       <LineTools>
-        <SearchTool>
+        <Form onSubmit={handleSubmit}>
           <MdSearch color="#999999" size={25} />
-          <input type="search" placeholder="Buscar por encomendas" />
-        </SearchTool>
+          <Input
+            type="text"
+            name="search"
+            placeholder="Buscar por encomendas"
+          />
+        </Form>
 
         <Link to="/delivery/register">
           <MdAdd color="#fff" size={23} /> CADASTRAR
