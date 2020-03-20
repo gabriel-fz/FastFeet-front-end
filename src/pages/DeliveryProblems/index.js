@@ -76,8 +76,10 @@ export default function DeliveryProblem() {
                         deliveryProblem.delivery.canceled_at ? true : false
                       }
                     >
-                      <MdDeleteForever color="#DE3B3B" size={15} /> Cancelar
-                      encomenda
+                      <MdDeleteForever color="#DE3B3B" size={15} />
+                      {deliveryProblem.delivery.canceled_at
+                        ? 'Cancelada'
+                        : 'Cancelar encomenda'}
                     </button>
                   </div>
                 </Actions>

@@ -2,16 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '~/services/api';
 import { useDispatch } from 'react-redux';
+import Modal from 'react-modal';
+import { parseISO, format } from 'date-fns';
 
 import Actions from '~/components/Actions';
-
 import Badges from './Badges';
-
-import {
-  deliveryUpdateRequest,
-  deliveryDelete,
-} from '~/store/modules/delivery/actions';
-
 import {
   MdSearch,
   MdAdd,
@@ -19,11 +14,23 @@ import {
   MdModeEdit,
   MdDeleteForever,
 } from 'react-icons/md';
+import {
+  Container,
+  LineTools,
+  SearchTool,
+  Table,
+  customStyles,
+} from '~/styles/listsDefault';
 
-import { Container, LineTools, SearchTool, Table } from '~/styles/listsDefault';
+import {
+  deliveryUpdateRequest,
+  deliveryDelete,
+} from '~/store/modules/delivery/actions';
 
 export default function Deliveries() {
   const dispatch = useDispatch();
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalData, setModalData] = useState({});
   const [deliveries, setDeliveries] = useState([]);
 
   useEffect(() => {
@@ -38,6 +45,8 @@ export default function Deliveries() {
           delivery.canceled_at
         ),
       }));
+
+      console.log(data);
 
       setDeliveries(data);
     }
@@ -69,6 +78,28 @@ export default function Deliveries() {
     }
   }
 
+  function openModal(delivery) {
+    const data = {
+      rua: `${delivery.recipient.address}, nº ${delivery.recipient.address_number}`,
+      cidade: `${delivery.recipient.city} - ${delivery.recipient.state}`,
+      cep: delivery.recipient.zip_code,
+      retirada: delivery.start_date
+        ? format(parseISO(delivery.start_date), 'dd/MM/YYY')
+        : null,
+      entrega: delivery.end_date
+        ? format(parseISO(delivery.end_date), 'dd/MM/YYY')
+        : null,
+      assinatura: delivery.signature ? delivery.signature.url : '',
+    };
+    console.log(data);
+    setModalData(data);
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
   return (
     <Container>
       <strong>Gerenciamento de encomendas</strong>
@@ -96,7 +127,7 @@ export default function Deliveries() {
         </thead>
         <tbody>
           {deliveries.map(delivery => (
-            <tr>
+            <tr key={delivery.id}>
               <td>{delivery.id}</td>
               <td>{delivery.recipient.name}</td>
               <td>{delivery.deliveryman.name}</td>
@@ -108,7 +139,7 @@ export default function Deliveries() {
               <td>
                 <Actions>
                   <div>
-                    <button type="button">
+                    <button type="button" onClick={() => openModal(delivery)}>
                       <MdVisibility color="#8E5BE8" size={15} /> Visualizar
                     </button>
                   </div>
@@ -131,6 +162,34 @@ export default function Deliveries() {
           ))}
         </tbody>
       </Table>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+      >
+        <strong>Informações da retirada</strong>
+        <p>{modalData.rua}</p>
+        <p>{modalData.cidade}</p>
+        <p>{modalData.cep}</p>
+        <br></br>
+        <strong>Datas</strong>
+        <p>
+          <strong>Retirada:</strong>{' '}
+          {modalData.retirada
+            ? modalData.retirada
+            : 'A encomenda ainda não foi retirada'}
+        </p>
+        <p>
+          <strong>Entrega:</strong>{' '}
+          {modalData.entrega
+            ? modalData.entrega
+            : 'A encomenda ainda não foi entregue'}
+        </p>
+        <br></br>
+        <strong>Assinatura do destinatário</strong>
+        <img src={modalData.assinatura} alt="" />
+      </Modal>
     </Container>
   );
 }
