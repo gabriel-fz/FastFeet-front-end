@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import api from '~/services/api';
 import { useDispatch } from 'react-redux';
+import Modal from 'react-modal';
 
 import Actions from '~/components/Actions';
-
 import { MdVisibility, MdDeleteForever } from 'react-icons/md';
-import { Container, Table } from '~/styles/listsDefault';
+import { Container, Table, customStyles } from '~/styles/listsDefault';
 
 import { deliveryCancel } from '~/store/modules/deliveryProblem/actions';
 
 export default function DeliveryProblem() {
   const dispatch = useDispatch();
   const [deliveryProblems, setDeliveryProblems] = useState([]);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [problemModal, setProblemModal] = useState();
 
   useEffect(() => {
     async function loadDeliveryProblems() {
@@ -28,6 +30,15 @@ export default function DeliveryProblem() {
       dispatch(deliveryCancel(id));
       setDeliveryProblems(deliveryProblems);
     }
+  }
+
+  function openModal(description) {
+    setProblemModal(description);
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
   }
 
   return (
@@ -49,7 +60,10 @@ export default function DeliveryProblem() {
               <td>
                 <Actions>
                   <div>
-                    <button type="button">
+                    <button
+                      type="button"
+                      onClick={() => openModal(deliveryProblem.description)}
+                    >
                       <MdVisibility color="#4D85EE" size={15} /> Visualizar
                     </button>
                   </div>
@@ -72,6 +86,15 @@ export default function DeliveryProblem() {
           ))}
         </tbody>
       </Table>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+      >
+        <strong>VISUALIZAR PROBLEMA</strong>
+        <p>{problemModal}</p>
+      </Modal>
     </Container>
   );
 }

@@ -17,7 +17,9 @@ export default function Actions({ children }) {
         <MdMoreHoriz color="#C6C6C6" size={20} />
       </Badge>
 
-      <ActionsList visible={visible}>{children}</ActionsList>
+      <ActionsList onClick={handleToggleVisible} visible={visible}>
+        {children}
+      </ActionsList>
     </Container>
   );
 }
