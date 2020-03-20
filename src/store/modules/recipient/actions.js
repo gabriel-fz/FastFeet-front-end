@@ -11,3 +11,10 @@ export function recipientUpdate(data) {
     payload: { data },
   };
 }
+
+export function recipientDelete(id) {
+  return {
+    type: '@recipient_DELETE',
+    payload: { id },
+  };
+}

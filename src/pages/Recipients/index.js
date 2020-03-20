@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '~/services/api';
+import { useDispatch } from 'react-redux';
 
 import Actions from '~/components/Actions';
 
 import { MdSearch, MdAdd, MdModeEdit, MdDeleteForever } from 'react-icons/md';
-
 import { Container, LineTools, SearchTool, Table } from '~/styles/listsDefault';
 
+import { recipientDelete } from '~/store/modules/recipient/actions';
+
 export default function Recipients() {
+  const dispatch = useDispatch();
   const [recipients, setRecipients] = useState([]);
 
   useEffect(() => {
     async function loadRecipients() {
       const response = await api.get('recipients');
-
       setRecipients(response.data);
     }
-
     loadRecipients();
-  }, []);
+  }, [recipients]);
+
+  function handleDelete(id) {
+    if (window.confirm('Deseja mesmo daletar o entregador?')) {
+      dispatch(recipientDelete(id));
+      setRecipients(recipients);
+    }
+  }
 
   return (
     <Container>
@@ -60,7 +68,10 @@ export default function Recipients() {
                   </div>
 
                   <div>
-                    <button type="button">
+                    <button
+                      type="submit"
+                      onClick={() => handleDelete(recipient.id)}
+                    >
                       <MdDeleteForever color="#DE3B3B" size={15} /> Excluir
                     </button>
                   </div>

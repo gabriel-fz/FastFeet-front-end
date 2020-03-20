@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '~/services/api';
+import { useDispatch } from 'react-redux';
 
 import Actions from '~/components/Actions';
 
 import { MdSearch, MdAdd, MdModeEdit, MdDeleteForever } from 'react-icons/md';
-
 import { Container, LineTools, SearchTool, Table } from '~/styles/listsDefault';
 
+import {
+  deliverymanUpdateRequest,
+  deliverymanDelete,
+} from '~/store/modules/deliveryman/actions';
+
 export default function Deliverymans() {
+  const dispatch = useDispatch();
   const [deliverymans, setDeliverymans] = useState([]);
 
   useEffect(() => {
@@ -17,9 +23,19 @@ export default function Deliverymans() {
 
       setDeliverymans(response.data);
     }
-
     loadDeliverymans();
-  }, []);
+  }, [deliverymans]);
+
+  function handleEdit(deliveryman) {
+    dispatch(deliverymanUpdateRequest(deliveryman));
+  }
+
+  function handleDelete(id) {
+    if (window.confirm('Deseja mesmo daletar o entregador?')) {
+      dispatch(deliverymanDelete(id));
+      setDeliverymans(deliverymans);
+    }
+  }
 
   return (
     <Container>
@@ -56,13 +72,19 @@ export default function Deliverymans() {
               <td>
                 <Actions>
                   <div>
-                    <Link to={`/deliveryman/edit/${deliveryman.id}`}>
+                    <button
+                      type="submit"
+                      onClick={() => handleEdit(deliveryman)}
+                    >
                       <MdModeEdit color="#4D85EE" size={15} /> Editar
-                    </Link>
+                    </button>
                   </div>
 
                   <div>
-                    <button type="button">
+                    <button
+                      type="submit"
+                      onClick={() => handleDelete(deliveryman.id)}
+                    >
                       <MdDeleteForever color="#DE3B3B" size={15} /> Excluir
                     </button>
                   </div>

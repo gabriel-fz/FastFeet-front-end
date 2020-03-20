@@ -21,6 +21,37 @@ export function* deliverymanRegister({ payload }) {
   }
 }
 
+export function deliverymanUpdateRequest() {
+  history.push('/deliveryman/edit');
+}
+
+export function* deliverymanUpdate({ payload }) {
+  try {
+    const { data, id } = payload.data;
+
+    yield call(api.put, `deliverymans/${id}`, data);
+
+    toast.success('Entregador atualizado com sucesso!');
+  } catch (err) {
+    toast.error('Não foi possível atualizar o entregador');
+  }
+}
+
+export function* deliverymanDelete({ payload }) {
+  try {
+    const { id } = payload;
+
+    yield call(api.delete, `deliverymans/${id}`);
+
+    toast.success('Entregador deletado com sucesso!');
+  } catch (err) {
+    toast.error('Não foi possível deletar o entregador');
+  }
+}
+
 export default all([
   takeLatest('@deliveryman_REGISTER_REQUEST', deliverymanRegister),
+  takeLatest('@deliveryman_UPDATE_REQUEST', deliverymanUpdateRequest),
+  takeLatest('@deliveryman_UPDATE', deliverymanUpdate),
+  takeLatest('@deliveryman_DELETE', deliverymanDelete),
 ]);

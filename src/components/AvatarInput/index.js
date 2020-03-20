@@ -7,12 +7,10 @@ import { InputAvatar } from './styles';
 import avatarInputDefault from '~/assets/adicionar-foto.png';
 
 export default function AvatarInput(props) {
-  const { registerField } = useField('avatar');
+  const { defaultValue, registerField } = useField('avatar');
 
-  const [file, setFile] = useState(props.dataAvatarId && props.dataAvatarId);
-  const [preview, setPreview] = useState(
-    props.dataAvatarUrl && props.dataAvatarUrl
-  );
+  const [file, setFile] = useState(defaultValue && defaultValue.id);
+  const [preview, setPreview] = useState(defaultValue && defaultValue.url);
 
   const ref = useRef();
 

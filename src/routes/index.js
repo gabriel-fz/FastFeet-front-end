@@ -47,11 +47,7 @@ export default function Routes() {
         component={DeliveriesEdit}
         isPrivate
       />
-      <Route
-        path="/deliveryman/edit/:deliverymanId"
-        component={DeliverymansEdit}
-        isPrivate
-      />
+      <Route path="/deliveryman/edit" component={DeliverymansEdit} isPrivate />
       <Route
         path="/recipient/edit/:recipientId"
         component={RecipientsEdit}

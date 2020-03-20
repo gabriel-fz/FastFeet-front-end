@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Form, Input } from '@rocketseat/unform';
-import { useDispatch } from 'react-redux';
-import api from '~/services/api';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { deliverymanUpdate } from '~/store/modules/deliveryman/actions';
+
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
-
 import AvatarInput from '~/components/AvatarInput';
-
 import {
   Container,
   Content,
@@ -16,30 +15,24 @@ import {
   EditHeader,
 } from '~/styles/registerDefault';
 
-export default function DeliveriesEdit({ match }) {
-  const [deliverymanId] = useState(match.params.deliverymanId);
+export default function DeliveriesEdit() {
   const dispatch = useDispatch();
-  const [dataDeliveryman, setDataDeliveryman] = useState({});
+  const dataDeliveryman = useSelector(state => state.deliveryman.data);
 
-  useEffect(() => {
-    async function loadDeliveryman() {
-      const response = await api.get(`deliverymans/${deliverymanId}`);
+  function handleSubmit(data) {
+    const deliveryman = Object.assign(
+      { data: data },
+      { id: dataDeliveryman.id }
+    );
 
-      const { name, email, avatar_id } = response.data;
-      const avatar_url = response.data.avatar.url;
-
-      setDataDeliveryman({ name, email, avatar_id, avatar_url });
-    }
-    loadDeliveryman();
-  }, [deliverymanId]);
-
-  function handleSubmit() {}
+    dispatch(deliverymanUpdate(deliveryman));
+  }
 
   return (
     <Container>
       <Form initialData={dataDeliveryman} onSubmit={handleSubmit}>
         <EditHeader>
-          <h2>Cadastro de entregadores</h2>
+          <h2>Edição de entregador</h2>
 
           <div>
             <Link to="/deliverymans">
@@ -55,11 +48,7 @@ export default function DeliveriesEdit({ match }) {
         </EditHeader>
 
         <Content>
-          <AvatarInput
-            name="avatar_id"
-            dataAvatarId={dataDeliveryman.avatar_id}
-            dataAvatarUrl={dataDeliveryman.avatar_url}
-          />
+          <AvatarInput name="avatar_id" />
 
           <Row>
             <section>
