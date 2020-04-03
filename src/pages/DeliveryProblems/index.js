@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import api from '~/services/api';
 import { useDispatch } from 'react-redux';
-import Modal from 'react-modal';
 
 import Actions from '~/components/Actions';
 import { MdVisibility, MdDeleteForever } from 'react-icons/md';
-import { Container, Table, customStyles } from '~/styles/listsDefault';
+import { Container, Table } from '~/styles/listsDefault';
 
 import { deliveryCancel } from '~/store/modules/deliveryProblem/actions';
+
+import ModalDeliveryProblems from './ModalDeliveryProblems';
 
 export default function DeliveryProblem() {
   const dispatch = useDispatch();
   const [deliveryProblems, setDeliveryProblems] = useState([]);
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [problemModal, setProblemModal] = useState();
 
   useEffect(() => {
@@ -34,11 +35,7 @@ export default function DeliveryProblem() {
 
   function openModal(description) {
     setProblemModal(description);
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
+    setModalIsOpen(true);
   }
 
   return (
@@ -91,14 +88,11 @@ export default function DeliveryProblem() {
         </tbody>
       </Table>
 
-      <Modal
+      <ModalDeliveryProblems
+        problem={problemModal}
         isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-      >
-        <strong>VISUALIZAR PROBLEMA</strong>
-        <p>{problemModal}</p>
-      </Modal>
+        onRequestClose={() => setModalIsOpen(false)}
+      />
     </Container>
   );
 }

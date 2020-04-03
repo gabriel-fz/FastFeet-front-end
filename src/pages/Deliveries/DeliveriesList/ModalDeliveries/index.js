@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import ModalDefault from '~/components/ModalDefault';
 
-import { Container, Infos, Title, ContainerImage } from './styles';
+import { Infos, Title, ContainerImage } from './styles';
 
 export default function ModalDeliveries({ data, ...rest }) {
   return (
