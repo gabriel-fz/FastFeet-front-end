@@ -1,12 +1,12 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
+import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import * as Yup from 'yup';
 
-import { deliverymanUpdate } from '~/store/modules/deliveryman/actions';
+import api from '~/services/api';
 
-import { MdChevronLeft, MdCheck } from 'react-icons/md';
+import { MdChevronLeft, MdCheck, MdRotateRight } from 'react-icons/md';
 import AvatarInput from '~/components/AvatarInput';
 import {
   Container,
@@ -16,33 +16,26 @@ import {
   EditHeader,
 } from '~/styles/registerDefault';
 
-const schema = Yup.object().shape({
-  name: Yup.string().required('Nome obrigatório'),
-  email: Yup.string()
-    .email()
-    .required('Email obrigatório'),
-});
-
 export default function DeliveriesEdit() {
-  const dispatch = useDispatch();
   const dataDeliveryman = useSelector(state => state.deliveryman.data);
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit(data) {
-    const deliveryman = Object.assign(
-      { data: data },
-      { id: dataDeliveryman.id }
-    );
+  async function handleSubmit(data) {
+    setLoading(true);
+    try {
+      await api.put(`deliverymans/${dataDeliveryman.id}`, data);
 
-    dispatch(deliverymanUpdate(deliveryman));
+      setLoading(false);
+      toast.success('Entregador atualizado com sucesso!');
+    } catch (err) {
+      setLoading(false);
+      toast.error('Não foi possível atualizar o entregador');
+    }
   }
 
   return (
     <Container>
-      <Form
-        schema={schema}
-        initialData={dataDeliveryman}
-        onSubmit={handleSubmit}
-      >
+      <Form initialData={dataDeliveryman} onSubmit={handleSubmit}>
         <EditHeader>
           <h2>Edição de entregador</h2>
 
@@ -52,9 +45,15 @@ export default function DeliveriesEdit() {
               VOLTAR
             </Link>
 
-            <ButtonSave type="submit">
-              <MdCheck color="#FFFFFF" size={20} />
-              SALVAR
+            <ButtonSave loading={loading}>
+              {loading ? (
+                <MdRotateRight color="#FFF" size={20} />
+              ) : (
+                <>
+                  <MdCheck color="#FFFFFF" size={20} />
+                  SALVAR
+                </>
+              )}
             </ButtonSave>
           </div>
         </EditHeader>

@@ -1,14 +1,13 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
-import * as Yup from 'yup';
+import { toast } from 'react-toastify';
+import { MdChevronLeft, MdCheck, MdRotateRight } from 'react-icons/md';
 
-import { MdChevronLeft, MdCheck } from 'react-icons/md';
+import history from '~/services/history';
+import api from '~/services/api';
 
 import AvatarInput from '~/components/AvatarInput';
-
-import { deliverymanRegister } from '~/store/modules/deliveryman/actions';
 
 import {
   Container,
@@ -18,23 +17,30 @@ import {
   EditHeader,
 } from '~/styles/registerDefault';
 
-const schema = Yup.object().shape({
-  name: Yup.string().required('Nome obrigatório'),
-  email: Yup.string()
-    .email()
-    .required('Email obrigatório'),
-});
-
 export default function DeliveriesRegister() {
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit({ name, email, avatar_id }) {
-    dispatch(deliverymanRegister(name, email, avatar_id));
+  async function handleSubmit({ name, email, avatar_id }) {
+    setLoading(true);
+    try {
+      await api.post('deliverymans', {
+        name,
+        email,
+        avatar_id,
+      });
+
+      setLoading(false);
+      toast.success('Entregador cadastrado com sucesso');
+      history.push('/deliverymans');
+    } catch (err) {
+      setLoading(false);
+      toast.error('Algo deu errado com o cadastro');
+    }
   }
 
   return (
     <Container>
-      <Form schema={schema} onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <EditHeader>
           <h2>Cadastro de entregadores</h2>
 
@@ -44,9 +50,15 @@ export default function DeliveriesRegister() {
               VOLTAR
             </Link>
 
-            <ButtonSave type="submit">
-              <MdCheck color="#FFFFFF" size={20} />
-              SALVAR
+            <ButtonSave loading={loading}>
+              {loading ? (
+                <MdRotateRight color="#FFF" size={20} />
+              ) : (
+                <>
+                  <MdCheck color="#FFFFFF" size={20} />
+                  SALVAR
+                </>
+              )}
             </ButtonSave>
           </div>
         </EditHeader>
