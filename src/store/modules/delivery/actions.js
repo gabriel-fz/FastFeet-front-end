@@ -4,10 +4,3 @@ export function deliveryUpdateRequest(delivery) {
     payload: { delivery },
   };
 }
-
-export function deliveryUpdate(data) {
-  return {
-    type: '@delivery_UPDATE',
-    payload: { data },
-  };
-}

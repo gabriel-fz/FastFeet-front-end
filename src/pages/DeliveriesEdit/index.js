@@ -1,11 +1,15 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
-
-import { deliveryUpdate } from '~/store/modules/delivery/actions';
-
+import { toast } from 'react-toastify';
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
+
+import api from '~/services/api';
+
+import RecipientInput from '~/components/DeliveryInputs/RecipientInput';
+import DeliverymanInput from '~/components/DeliveryInputs/DeliverymanInput';
+
 import {
   Container,
   Content,
@@ -14,17 +18,17 @@ import {
   EditHeader,
 } from '~/styles/registerDefault';
 
-import RecipientInput from '~/components/DeliveryInputs/RecipientInput';
-import DeliverymanInput from '~/components/DeliveryInputs/DeliverymanInput';
-
 export default function DeliveriesEdit() {
-  const dispatch = useDispatch();
   const dataDelivery = useSelector(state => state.delivery.data);
 
-  function handleSubmit(data) {
-    const delivery = Object.assign({ data: data }, { id: dataDelivery.id });
+  async function handleSubmit(data) {
+    try {
+      await api.put(`deliveries/${dataDelivery.id}`, data);
 
-    dispatch(deliveryUpdate(delivery));
+      toast.success('Entrega atualizada com sucesso!');
+    } catch (err) {
+      toast.error('Não foi possível atualizar a entrega');
+    }
   }
 
   return (

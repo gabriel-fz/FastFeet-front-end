@@ -2,11 +2,14 @@ import React from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { MdChevronLeft, MdCheck } from 'react-icons/md';
 
 import history from '~/services/history';
 import api from '~/services/api';
 
-import { MdChevronLeft, MdCheck } from 'react-icons/md';
+import RecipientInput from '~/components/DeliveryInputs/RecipientInput';
+import DeliverymanInput from '~/components/DeliveryInputs/DeliverymanInput';
+
 import {
   Container,
   Content,
@@ -14,9 +17,6 @@ import {
   ButtonSave,
   EditHeader,
 } from '~/styles/registerDefault';
-
-import RecipientInput from '~/components/DeliveryInputs/RecipientInput';
-import DeliverymanInput from '~/components/DeliveryInputs/DeliverymanInput';
 
 export default function DeliveriesRegister() {
   async function handleSubmit({ recipient_id, deliveryman_id, product }) {
