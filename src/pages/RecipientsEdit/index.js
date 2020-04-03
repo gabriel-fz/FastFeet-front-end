@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
-import api from '~/services/api';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
-import { recipientUpdate } from '~/store/modules/recipient/actions';
+import api from '~/services/api';
 
-import { MdChevronLeft, MdCheck } from 'react-icons/md';
+import { MdChevronLeft, MdCheck, MdRotateRight } from 'react-icons/md';
 import {
   Container,
   Content,
@@ -29,9 +28,9 @@ const schema = Yup.object().shape({
 });
 
 export default function RecipientsEdit({ match }) {
-  const dispatch = useDispatch();
   const [recipientId] = useState(match.params.recipientId);
   const [dataRecipient, setDataRecipient] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function loadRecipient() {
@@ -42,9 +41,17 @@ export default function RecipientsEdit({ match }) {
     loadRecipient();
   }, [recipientId]);
 
-  function handleSubmit(data) {
-    const recipient = Object.assign({ data: data }, { id: recipientId });
-    dispatch(recipientUpdate(recipient));
+  async function handleSubmit(data) {
+    setLoading(true);
+    try {
+      await api.put(`recipients/${recipientId}`, data);
+
+      setLoading(false);
+      toast.success('Destinatario atualizado com sucesso!');
+    } catch (err) {
+      setLoading(false);
+      toast.error('Algo deu errado com a atuaização do destinatário');
+    }
   }
 
   return (
@@ -59,9 +66,15 @@ export default function RecipientsEdit({ match }) {
               VOLTAR
             </Link>
 
-            <ButtonSave type="submit">
-              <MdCheck color="#FFFFFF" size={20} />
-              SALVAR
+            <ButtonSave loading={loading}>
+              {loading ? (
+                <MdRotateRight color="#FFF" size={20} />
+              ) : (
+                <>
+                  <MdCheck color="#FFFFFF" size={20} />
+                  SALVAR
+                </>
+              )}
             </ButtonSave>
           </div>
         </EditHeader>
