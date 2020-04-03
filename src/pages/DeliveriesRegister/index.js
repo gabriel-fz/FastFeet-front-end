@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { MdChevronLeft, MdCheck } from 'react-icons/md';
+import { MdChevronLeft, MdCheck, MdRotateRight } from 'react-icons/md';
 
 import history from '~/services/history';
 import api from '~/services/api';
@@ -19,7 +19,10 @@ import {
 } from '~/styles/registerDefault';
 
 export default function DeliveriesRegister() {
+  const [loading, setLoading] = useState(false);
+
   async function handleSubmit({ recipient_id, deliveryman_id, product }) {
+    setLoading(true);
     try {
       await api.post('deliveries', {
         recipient_id,
@@ -27,9 +30,11 @@ export default function DeliveriesRegister() {
         product,
       });
 
+      setLoading(false);
       toast.success('Entrega cadastrada com sucesso');
       history.push('/deliveries');
     } catch (err) {
+      setLoading(false);
       toast.error('Algo deu errado com o cadastro');
     }
   }
@@ -46,9 +51,15 @@ export default function DeliveriesRegister() {
               VOLTAR
             </Link>
 
-            <ButtonSave type="submit">
-              <MdCheck color="#FFFFFF" size={20} />
-              SALVAR
+            <ButtonSave loading={loading}>
+              {loading ? (
+                <MdRotateRight color="#FFF" size={20} />
+              ) : (
+                <>
+                  <MdCheck color="#FFFFFF" size={20} />
+                  SALVAR
+                </>
+              )}
             </ButtonSave>
           </div>
         </EditHeader>

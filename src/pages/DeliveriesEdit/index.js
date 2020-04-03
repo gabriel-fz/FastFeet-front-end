@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { MdChevronLeft, MdCheck } from 'react-icons/md';
+import { MdChevronLeft, MdCheck, MdRotateRight } from 'react-icons/md';
 
 import api from '~/services/api';
 
@@ -20,13 +20,17 @@ import {
 
 export default function DeliveriesEdit() {
   const dataDelivery = useSelector(state => state.delivery.data);
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(data) {
+    setLoading(true);
     try {
       await api.put(`deliveries/${dataDelivery.id}`, data);
 
+      setLoading(false);
       toast.success('Entrega atualizada com sucesso!');
     } catch (err) {
+      setLoading(false);
       toast.error('Não foi possível atualizar a entrega');
     }
   }
@@ -43,9 +47,15 @@ export default function DeliveriesEdit() {
               VOLTAR
             </Link>
 
-            <ButtonSave type="submit">
-              <MdCheck color="#FFFFFF" size={20} />
-              SALVAR
+            <ButtonSave loading={loading}>
+              {loading ? (
+                <MdRotateRight color="#FFF" size={20} />
+              ) : (
+                <>
+                  <MdCheck color="#FFFFFF" size={20} />
+                  SALVAR
+                </>
+              )}
             </ButtonSave>
           </div>
         </EditHeader>

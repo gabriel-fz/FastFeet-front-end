@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 export const Container = styled.div`
   max-width: 900px;
@@ -46,7 +46,20 @@ export const Row = styled.div`
   }
 `;
 
-export const ButtonSave = styled.button`
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg)
+  }
+
+  to {
+    transform: rotate(360deg)
+  }
+`;
+
+export const ButtonSave = styled.button.attrs(props => ({
+  type: 'submit',
+  disabled: props.loading,
+}))`
   width: 112px;
   height: 36px;
   background: #7d40e7;
@@ -58,6 +71,19 @@ export const ButtonSave = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  ${props =>
+    props.loading &&
+    css`
+      svg {
+        animation: ${rotate} 2s linear infinite;
+      }
+    `}
 `;
 
 export const EditHeader = styled.div`
