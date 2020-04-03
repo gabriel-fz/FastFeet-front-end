@@ -1,35 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import api from '~/services/api';
-import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import Actions from '~/components/Actions';
 import { MdVisibility, MdDeleteForever } from 'react-icons/md';
 import { Container, Table } from '~/styles/listsDefault';
 
-import { deliveryCancel } from '~/store/modules/deliveryProblem/actions';
-
 import ModalDeliveryProblems from './ModalDeliveryProblems';
 
 export default function DeliveryProblem() {
-  const dispatch = useDispatch();
   const [deliveryProblems, setDeliveryProblems] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [problemModal, setProblemModal] = useState();
 
+  async function loadDeliveryProblems() {
+    const response = await api.get('delivery/problems');
+
+    setDeliveryProblems(response.data);
+  }
+
   useEffect(() => {
-    async function loadDeliveryProblems() {
-      const response = await api.get('delivery/problems');
-
-      setDeliveryProblems(response.data);
-    }
-
     loadDeliveryProblems();
   }, [deliveryProblems]);
 
-  function handleCancel(id) {
+  async function handleCancel(id) {
     if (window.confirm('Deseja mesmo cancelar a entrega?')) {
-      dispatch(deliveryCancel(id));
-      setDeliveryProblems(deliveryProblems);
+      try {
+        await api.delete(`/problem/${id}/cancel-delivery`);
+
+        toast.success('Entrega calcelada com sucesso!');
+        loadDeliveryProblems();
+      } catch (err) {
+        toast.error('Não foi possível cancelar a entrega');
+      }
     }
   }
 
@@ -71,14 +74,9 @@ export default function DeliveryProblem() {
                     <button
                       type="submit"
                       onClick={() => handleCancel(deliveryProblem.id)}
-                      disabled={
-                        deliveryProblem.delivery.canceled_at ? true : false
-                      }
                     >
                       <MdDeleteForever color="#DE3B3B" size={15} />
-                      {deliveryProblem.delivery.canceled_at
-                        ? 'Cancelada'
-                        : 'Cancelar encomenda'}
+                      Cancelar encomenda
                     </button>
                   </div>
                 </Actions>
