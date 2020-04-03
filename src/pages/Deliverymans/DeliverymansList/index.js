@@ -13,7 +13,7 @@ import { Container, LineTools, Table } from '~/styles/listsDefault';
 
 import { deliverymanUpdateRequest } from '~/store/modules/deliveryman/actions';
 
-export default function Deliverymans() {
+export default function DeliverymansList() {
   const dispatch = useDispatch();
   const [deliverymans, setDeliverymans] = useState([]);
   const [searchDeliverymans, setSearchDeliverymans] = useState();

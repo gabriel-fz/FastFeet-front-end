@@ -20,7 +20,7 @@ import { Container, LineTools, Table } from '~/styles/listsDefault';
 
 import { deliveryUpdateRequest } from '~/store/modules/delivery/actions';
 
-export default function Deliveries() {
+export default function DeliveriesList() {
   const dispatch = useDispatch();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalData, setModalData] = useState({

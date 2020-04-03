@@ -9,7 +9,7 @@ import Actions from '~/components/Actions';
 import { MdSearch, MdAdd, MdModeEdit, MdDeleteForever } from 'react-icons/md';
 import { Container, LineTools, Table } from '~/styles/listsDefault';
 
-export default function Recipients() {
+export default function RecipientsList() {
   const [recipients, setRecipients] = useState([]);
   const [searchRecipients, setSearchRecipients] = useState();
 
