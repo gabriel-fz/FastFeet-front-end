@@ -18,10 +18,3 @@ export function deliveryUpdate(data) {
     payload: { data },
   };
 }
-
-export function deliveryDelete(id) {
-  return {
-    type: '@delivery_DELETE',
-    payload: { id },
-  };
-}

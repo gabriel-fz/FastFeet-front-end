@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import api from '~/services/api';
 import { useDispatch } from 'react-redux';
-import Modal from 'react-modal';
-import { parseISO, format } from 'date-fns';
 import { Form, Input } from '@rocketseat/unform';
+import { toast } from 'react-toastify';
 
+import api from '~/services/api';
 import Actions from '~/components/Actions';
+
+import ModalDeliveries from './ModalDeliveries';
 import Badges from './Badges';
 import {
   MdSearch,
@@ -15,88 +16,55 @@ import {
   MdModeEdit,
   MdDeleteForever,
 } from 'react-icons/md';
-import {
-  Container,
-  LineTools,
-  Table,
-  customStyles,
-} from '~/styles/listsDefault';
+import { Container, LineTools, Table } from '~/styles/listsDefault';
 
-import {
-  deliveryUpdateRequest,
-  deliveryDelete,
-} from '~/store/modules/delivery/actions';
+import { deliveryUpdateRequest } from '~/store/modules/delivery/actions';
 
 export default function Deliveries() {
   const dispatch = useDispatch();
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [modalData, setModalData] = useState({});
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalData, setModalData] = useState({
+    recipient: {},
+    deliveryman: {},
+  });
   const [deliveries, setDeliveries] = useState([]);
   const [searchDeliveries, setSearchDeliveries] = useState();
 
-  useEffect(() => {
-    async function loadDeliveries() {
+  async function loadDeliveries() {
+    try {
       const response = await api.get('deliveries', {
         params: { name: searchDeliveries },
       });
-
-      const data = response.data.map(delivery => ({
-        ...delivery,
-        status: checkStatus(
-          delivery.start_date,
-          delivery.end_date,
-          delivery.canceled_at
-        ),
-      }));
-      setDeliveries(data);
+      setDeliveries(response.data);
+    } catch (err) {
+      toast.error('Não foi possível carregar a lista de entregas');
     }
+  }
+
+  useEffect(() => {
     loadDeliveries();
   }, [searchDeliveries]);
-
-  function checkStatus(start_date, end_date, canceled_at) {
-    if (canceled_at) {
-      return 'CANCELADA';
-    }
-    if (end_date) {
-      return 'ENTREGUE';
-    }
-    if (!start_date) {
-      return 'PENDENTE';
-    }
-    return 'RETIRADA';
-  }
 
   function handleEdit(delivery) {
     dispatch(deliveryUpdateRequest(delivery));
   }
 
-  function handleDelete(id) {
+  async function handleDelete(id) {
     if (window.confirm('Deseja mesmo daletar o entregador?')) {
-      dispatch(deliveryDelete(id));
-      setDeliveries(deliveries);
+      try {
+        await api.delete(`deliveries/${id}`);
+
+        toast.success('Entrega deletada com sucesso!');
+        loadDeliveries();
+      } catch (err) {
+        toast.error('Não foi possível deletar a entrega');
+      }
     }
   }
 
   function openModal(delivery) {
-    const data = {
-      rua: `${delivery.recipient.address}, nº ${delivery.recipient.address_number}`,
-      cidade: `${delivery.recipient.city} - ${delivery.recipient.state}`,
-      cep: delivery.recipient.zip_code,
-      retirada: delivery.start_date
-        ? format(parseISO(delivery.start_date), 'dd/MM/YYY')
-        : null,
-      entrega: delivery.end_date
-        ? format(parseISO(delivery.end_date), 'dd/MM/YYY')
-        : null,
-      assinatura: delivery.signature ? delivery.signature.url : '',
-    };
-    console.log(data);
-    setModalData(data);
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
+    setModalData(delivery);
+    setModalIsOpen(true);
   }
 
   function handleSubmit({ search }) {
@@ -141,7 +109,11 @@ export default function Deliveries() {
               <td>{delivery.recipient.city}</td>
               <td>{delivery.recipient.state}</td>
               <td>
-                <Badges status={delivery.status} />
+                <Badges
+                  start_date={delivery.start_date}
+                  end_date={delivery.end_date}
+                  canceled_at={delivery.canceled_at}
+                />
               </td>
               <td>
                 <Actions>
@@ -170,33 +142,11 @@ export default function Deliveries() {
         </tbody>
       </Table>
 
-      <Modal
+      <ModalDeliveries
+        data={modalData}
         isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-      >
-        <strong>Informações da retirada</strong>
-        <p>{modalData.rua}</p>
-        <p>{modalData.cidade}</p>
-        <p>{modalData.cep}</p>
-        <br></br>
-        <strong>Datas</strong>
-        <p>
-          <strong>Retirada:</strong>{' '}
-          {modalData.retirada
-            ? modalData.retirada
-            : 'A encomenda ainda não foi retirada'}
-        </p>
-        <p>
-          <strong>Entrega:</strong>{' '}
-          {modalData.entrega
-            ? modalData.entrega
-            : 'A encomenda ainda não foi entregue'}
-        </p>
-        <br></br>
-        <strong>Assinatura do destinatário</strong>
-        <img src={modalData.assinatura} alt="" />
-      </Modal>
+        onRequestClose={() => setModalIsOpen(false)}
+      />
     </Container>
   );
 }

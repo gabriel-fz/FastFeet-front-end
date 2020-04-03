@@ -37,21 +37,8 @@ export function* deliveryUpdate({ payload }) {
   }
 }
 
-export function* deliveryDelete({ payload }) {
-  try {
-    const { id } = payload;
-
-    yield call(api.delete, `deliveries/${id}`);
-
-    toast.success('Entrega deletada com sucesso!');
-  } catch (err) {
-    toast.error('Não foi possível deletar a entrega');
-  }
-}
-
 export default all([
   takeLatest('@register/REGISTER_DELIVERY_REQUEST', registerDelivery),
   takeLatest('@delivery_UPDATE_REQUEST', deliveryUpdateRequest),
   takeLatest('@delivery_UPDATE', deliveryUpdate),
-  takeLatest('@delivery_DELETE', deliveryDelete),
 ]);
