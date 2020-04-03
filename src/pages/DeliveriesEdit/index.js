@@ -2,7 +2,6 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
-import * as Yup from 'yup';
 
 import { deliveryUpdate } from '~/store/modules/delivery/actions';
 
@@ -15,12 +14,8 @@ import {
   EditHeader,
 } from '~/styles/registerDefault';
 
-import RecipientInput from './RecipientInput';
-import DeliverymanInput from './DeliverymanInput';
-
-const schema = Yup.object().shape({
-  product: Yup.string().required('Nome obrigatório'),
-});
+import RecipientInput from '~/components/DeliveryInputs/RecipientInput';
+import DeliverymanInput from '~/components/DeliveryInputs/DeliverymanInput';
 
 export default function DeliveriesEdit() {
   const dispatch = useDispatch();
@@ -32,37 +27,9 @@ export default function DeliveriesEdit() {
     dispatch(deliveryUpdate(delivery));
   }
 
-  const customStyles = {
-    singleValue: styles => {
-      return {
-        ...styles,
-        margin: '15px 0px',
-        color: '#999999',
-      };
-    },
-    valueContainer: styles => {
-      return {
-        ...styles,
-        height: '45px',
-      };
-    },
-    control: styles => {
-      return {
-        ...styles,
-        border: '1px solid #dddddd',
-      };
-    },
-    indicatorSeparator: styles => {
-      return {
-        ...styles,
-        background: '#fff',
-      };
-    },
-  };
-
   return (
     <Container>
-      <Form schema={schema} initialData={dataDelivery} onSubmit={handleSubmit}>
+      <Form initialData={dataDelivery} onSubmit={handleSubmit}>
         <EditHeader>
           <h2>Edição de encomendas</h2>
 
@@ -82,16 +49,12 @@ export default function DeliveriesEdit() {
           <Row>
             <section>
               <label>Destinatário</label>
-              <RecipientInput
-                name="recipient_id"
-                valueId={dataDelivery}
-                styles={customStyles}
-              />
+              <RecipientInput name="recipient_id" />
             </section>
 
             <section>
               <label>Entregador</label>
-              <DeliverymanInput name="deliveryman_id" styles={customStyles} />
+              <DeliverymanInput name="deliveryman_id" />
             </section>
           </Row>
 

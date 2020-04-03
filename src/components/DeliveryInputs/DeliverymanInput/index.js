@@ -3,7 +3,7 @@ import AsyncSelect from 'react-select/async';
 import api from '~/services/api';
 import { useField } from '@rocketseat/unform';
 
-export default function RecipientInput({ ...rest }) {
+export default function DeliverymanInput({ ...rest }) {
   const [deliverymans, setDeliverymans] = useState([]);
   const selectRef = useRef(null);
   const { defaultValue, registerField } = useField('deliveryman');
@@ -47,13 +47,41 @@ export default function RecipientInput({ ...rest }) {
     }, 100);
   };
 
+  const customStyles = {
+    singleValue: styles => {
+      return {
+        ...styles,
+        margin: '15px 0px',
+        color: '#999999',
+      };
+    },
+    valueContainer: styles => {
+      return {
+        ...styles,
+        height: '45px',
+      };
+    },
+    control: styles => {
+      return {
+        ...styles,
+        border: '1px solid #dddddd',
+      };
+    },
+    indicatorSeparator: styles => {
+      return {
+        ...styles,
+        background: '#fff',
+      };
+    },
+  };
+
   return (
     <label htmlFor="deliveryman">
       <AsyncSelect
-        cacheOptions
         type="text"
         id="deliveryman"
         ref={selectRef}
+        styles={customStyles}
         defaultValue={defaultValue}
         classNamePrefix="react-select"
         loadOptions={loadDeliverymans}

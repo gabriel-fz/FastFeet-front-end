@@ -4,23 +4,6 @@ import { toast } from 'react-toastify';
 import history from '~/services/history';
 import api from '~/services/api';
 
-export function* registerDelivery({ payload }) {
-  try {
-    const { recipient_id, deliveryman_id, product } = payload;
-
-    yield call(api.post, 'deliveries', {
-      recipient_id,
-      deliveryman_id,
-      product,
-    });
-
-    toast.success('Entrega cadastrada com sucesso');
-    history.push('/deliveries');
-  } catch (err) {
-    toast.error('Algo deu errado com o cadastro');
-  }
-}
-
 export function deliveryUpdateRequest() {
   history.push('/delivery/edit');
 }
@@ -38,7 +21,6 @@ export function* deliveryUpdate({ payload }) {
 }
 
 export default all([
-  takeLatest('@register/REGISTER_DELIVERY_REQUEST', registerDelivery),
   takeLatest('@delivery_UPDATE_REQUEST', deliveryUpdateRequest),
   takeLatest('@delivery_UPDATE', deliveryUpdate),
 ]);

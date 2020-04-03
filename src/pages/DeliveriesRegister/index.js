@@ -1,8 +1,10 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
-import * as Yup from 'yup';
+import { toast } from 'react-toastify';
+
+import history from '~/services/history';
+import api from '~/services/api';
 
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
 import {
@@ -13,53 +15,28 @@ import {
   EditHeader,
 } from '~/styles/registerDefault';
 
-import { registerRequest } from '~/store/modules/delivery/actions';
-
-import RecipientInput from './RecipientInput';
-import DeliverymanInput from './DeliverymanInput';
-
-const schema = Yup.object().shape({
-  product: Yup.string().required('Nome obrigatório'),
-});
+import RecipientInput from '~/components/DeliveryInputs/RecipientInput';
+import DeliverymanInput from '~/components/DeliveryInputs/DeliverymanInput';
 
 export default function DeliveriesRegister() {
-  const dispatch = useDispatch();
+  async function handleSubmit({ recipient_id, deliveryman_id, product }) {
+    try {
+      await api.post('deliveries', {
+        recipient_id,
+        deliveryman_id,
+        product,
+      });
 
-  function handleSubmit({ recipient_id, deliveryman_id, product }) {
-    dispatch(registerRequest(recipient_id, deliveryman_id, product));
+      toast.success('Entrega cadastrada com sucesso');
+      history.push('/deliveries');
+    } catch (err) {
+      toast.error('Algo deu errado com o cadastro');
+    }
   }
-
-  const customStyles = {
-    singleValue: styles => {
-      return {
-        ...styles,
-        margin: '15px 0px',
-        color: '#999999',
-      };
-    },
-    valueContainer: styles => {
-      return {
-        ...styles,
-        height: '45px',
-      };
-    },
-    control: styles => {
-      return {
-        ...styles,
-        border: '1px solid #dddddd',
-      };
-    },
-    indicatorSeparator: styles => {
-      return {
-        ...styles,
-        background: '#fff',
-      };
-    },
-  };
 
   return (
     <Container>
-      <Form schema={schema} onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <EditHeader>
           <h2>Cadastro de encomendas</h2>
 
@@ -80,12 +57,18 @@ export default function DeliveriesRegister() {
           <Row>
             <section>
               <label>Destinatário</label>
-              <RecipientInput name="recipient_id" styles={customStyles} />
+              <RecipientInput
+                name="recipient_id"
+                placeholder="Digite o nome do destinatário"
+              />
             </section>
 
             <section>
               <label>Entregador</label>
-              <DeliverymanInput name="deliveryman_id" styles={customStyles} />
+              <DeliverymanInput
+                name="deliveryman_id"
+                placeholder="Digite o nome do entregador"
+              />
             </section>
           </Row>
 
