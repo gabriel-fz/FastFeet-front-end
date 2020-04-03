@@ -1,35 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import api from '~/services/api';
-import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
+import { toast } from 'react-toastify';
 
+import api from '~/services/api';
 import Actions from '~/components/Actions';
 
 import { MdSearch, MdAdd, MdModeEdit, MdDeleteForever } from 'react-icons/md';
 import { Container, LineTools, Table } from '~/styles/listsDefault';
 
-import { recipientDelete } from '~/store/modules/recipient/actions';
-
 export default function Recipients() {
-  const dispatch = useDispatch();
   const [recipients, setRecipients] = useState([]);
   const [searchRecipients, setSearchRecipients] = useState();
 
+  async function loadRecipients() {
+    const response = await api.get('recipients', {
+      params: { name: searchRecipients },
+    });
+    setRecipients(response.data);
+  }
+
   useEffect(() => {
-    async function loadRecipients() {
-      const response = await api.get('recipients', {
-        params: { name: searchRecipients },
-      });
-      setRecipients(response.data);
-    }
     loadRecipients();
   }, [recipients, searchRecipients]);
 
-  function handleDelete(id) {
+  async function handleDelete(id) {
     if (window.confirm('Deseja mesmo daletar o entregador?')) {
-      dispatch(recipientDelete(id));
-      setRecipients(recipients);
+      try {
+        await api.delete(`recipients/${id}`);
+
+        toast.success('Destinatário deletado com sucesso!');
+        loadRecipients();
+      } catch (err) {
+        toast.error('Não foi possível deletar o destinatário');
+      }
     }
   }
 

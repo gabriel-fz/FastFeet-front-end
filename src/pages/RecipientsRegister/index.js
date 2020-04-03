@@ -1,12 +1,13 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
-import { recipientRegister } from '~/store/modules/recipient/actions';
+import history from '~/services/history';
+import api from '~/services/api';
 
-import { MdChevronLeft, MdCheck } from 'react-icons/md';
+import { MdChevronLeft, MdCheck, MdRotateRight } from 'react-icons/md';
 import {
   Container,
   Content,
@@ -28,10 +29,20 @@ const schema = Yup.object().shape({
 });
 
 export default function RecipientsRegister() {
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit(data) {
-    dispatch(recipientRegister(data));
+  async function handleSubmit(data) {
+    setLoading(true);
+    try {
+      await api.post('recipients', data);
+
+      setLoading(false);
+      toast.success('Destinatário cadastrado com sucesso!');
+      history.push('/recipients');
+    } catch (err) {
+      setLoading(false);
+      toast.error('Algo deu errado com o cadastro');
+    }
   }
 
   return (
@@ -46,9 +57,15 @@ export default function RecipientsRegister() {
               VOLTAR
             </Link>
 
-            <ButtonSave type="submit">
-              <MdCheck color="#FFFFFF" size={20} />
-              SALVAR
+            <ButtonSave loading={loading}>
+              {loading ? (
+                <MdRotateRight color="#FFF" size={20} />
+              ) : (
+                <>
+                  <MdCheck color="#FFFFFF" size={20} />
+                  SALVAR
+                </>
+              )}
             </ButtonSave>
           </div>
         </EditHeader>
