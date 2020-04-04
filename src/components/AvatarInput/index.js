@@ -6,7 +6,7 @@ import { InputAvatar } from './styles';
 
 import avatarInputDefault from '~/assets/adicionar-foto.png';
 
-export default function AvatarInput(props) {
+export default function AvatarInput() {
   const { defaultValue, registerField } = useField('avatar');
 
   const [file, setFile] = useState(defaultValue && defaultValue.id);

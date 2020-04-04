@@ -1,6 +1,7 @@
 import React from 'react';
-import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
+import { Form, Input } from '@rocketseat/unform';
+import PropTypes from 'prop-types';
 
 import { MdSearch, MdAdd } from 'react-icons/md';
 
@@ -20,3 +21,7 @@ export default function HeaderList({ urlLink, ...rest }) {
     </HeaderL>
   );
 }
+
+HeaderList.propTypes = {
+  urlLink: PropTypes.string.isRequired,
+};

@@ -8,7 +8,7 @@ import HeaderList from 'components/HeaderList';
 import ListDefault from 'components/ListDefault';
 
 import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
-import { Container } from '~/styles/listsDefault';
+import { ContainerList } from '~/styles/defaults';
 
 export default function RecipientsList() {
   const [recipients, setRecipients] = useState([]);
@@ -43,7 +43,7 @@ export default function RecipientsList() {
   }
 
   return (
-    <Container>
+    <ContainerList>
       <strong>Gerenciamento de destinatários</strong>
 
       <HeaderList urlLink={'/recipient/register'} onSubmit={handleSubmit} />
@@ -89,6 +89,6 @@ export default function RecipientsList() {
           ))}
         </tbody>
       </ListDefault>
-    </Container>
+    </ContainerList>
   );
 }

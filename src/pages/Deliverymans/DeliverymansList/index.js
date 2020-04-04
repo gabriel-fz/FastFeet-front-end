@@ -9,7 +9,7 @@ import ListDefault from 'components/ListDefault';
 import avatarUser from '~/assets/avatar-user.png';
 
 import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
-import { Container } from '~/styles/listsDefault';
+import { ContainerList } from '~/styles/defaults';
 
 import { deliverymanUpdateRequest } from '~/store/modules/deliveryman/actions';
 
@@ -57,7 +57,7 @@ export default function DeliverymansList() {
   }
 
   return (
-    <Container>
+    <ContainerList>
       <strong>Gerenciando entregadores</strong>
 
       <HeaderList urlLink={'/deliveryman/register'} onSubmit={handleSubmit} />
@@ -106,6 +106,6 @@ export default function DeliverymansList() {
           ))}
         </tbody>
       </ListDefault>
-    </Container>
+    </ContainerList>
   );
 }

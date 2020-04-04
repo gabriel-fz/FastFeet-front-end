@@ -1,22 +1,15 @@
 import React, { useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { MdChevronLeft, MdCheck, MdRotateRight } from 'react-icons/md';
 
 import history from '~/services/history';
 import api from '~/services/api';
 
+import HeaderForm from '~/components/HeaderForm';
 import RecipientInput from '~/components/DeliveryInputs/RecipientInput';
 import DeliverymanInput from '~/components/DeliveryInputs/DeliverymanInput';
 
-import {
-  Container,
-  Content,
-  Row,
-  ButtonSave,
-  EditHeader,
-} from '~/styles/registerDefault';
+import { ContainerForm, Content, Row } from '~/styles/defaults';
 
 export default function DeliveriesRegister() {
   const [loading, setLoading] = useState(false);
@@ -40,29 +33,13 @@ export default function DeliveriesRegister() {
   }
 
   return (
-    <Container>
+    <ContainerForm>
       <Form onSubmit={handleSubmit}>
-        <EditHeader>
-          <h2>Cadastro de encomendas</h2>
-
-          <div>
-            <Link to="/deliveries">
-              <MdChevronLeft color="#FFFFFF" size={20} />
-              VOLTAR
-            </Link>
-
-            <ButtonSave loading={loading}>
-              {loading ? (
-                <MdRotateRight color="#FFF" size={20} />
-              ) : (
-                <>
-                  <MdCheck color="#FFFFFF" size={20} />
-                  SALVAR
-                </>
-              )}
-            </ButtonSave>
-          </div>
-        </EditHeader>
+        <HeaderForm
+          name={'Cadastro de encomendas'}
+          linkBack={'/deliveries'}
+          loading={loading}
+        />
 
         <Content>
           <Row>
@@ -91,6 +68,6 @@ export default function DeliveriesRegister() {
           </Row>
         </Content>
       </Form>
-    </Container>
+    </ContainerForm>
   );
 }

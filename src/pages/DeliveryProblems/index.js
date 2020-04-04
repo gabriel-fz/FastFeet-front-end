@@ -6,7 +6,7 @@ import api from '~/services/api';
 
 import Actions from '~/components/Actions';
 import ListDefault from 'components/ListDefault';
-import { Container } from '~/styles/listsDefault';
+import { ContainerList } from '~/styles/defaults';
 
 import ModalDeliveryProblems from './ModalDeliveryProblems';
 
@@ -44,7 +44,7 @@ export default function DeliveryProblem() {
   }
 
   return (
-    <Container>
+    <ContainerList>
       <strong>Problemas na entrega</strong>
       <ListDefault>
         <thead>
@@ -93,6 +93,6 @@ export default function DeliveryProblem() {
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
       />
-    </Container>
+    </ContainerList>
   );
 }

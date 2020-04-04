@@ -8,7 +8,7 @@ import api from '~/services/api';
 import HeaderForm from '~/components/HeaderForm';
 
 import AvatarInput from '~/components/AvatarInput';
-import { Container, Content, Row } from '~/styles/registerDefault';
+import { ContainerForm, Content, Row } from '~/styles/defaults';
 
 export default function DeliveriesEdit() {
   const dataDeliveryman = useSelector(state => state.deliveryman.data);
@@ -28,7 +28,7 @@ export default function DeliveriesEdit() {
   }
 
   return (
-    <Container>
+    <ContainerForm>
       <Form initialData={dataDeliveryman} onSubmit={handleSubmit}>
         <HeaderForm
           name={'Edição de entregador'}
@@ -54,6 +54,6 @@ export default function DeliveriesEdit() {
           </Row>
         </Content>
       </Form>
-    </Container>
+    </ContainerForm>
   );
 }

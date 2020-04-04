@@ -9,7 +9,7 @@ import HeaderForm from '~/components/HeaderForm';
 import DeliverymanInput from '~/components/DeliveryInputs/DeliverymanInput';
 import RecipientInput from '~/components/DeliveryInputs/RecipientInput';
 
-import { Container, Content, Row } from '~/styles/registerDefault';
+import { ContainerForm, Content, Row } from '~/styles/defaults';
 
 export default function DeliveriesEdit() {
   const dataDelivery = useSelector(state => state.delivery.data);
@@ -29,7 +29,7 @@ export default function DeliveriesEdit() {
   }
 
   return (
-    <Container>
+    <ContainerForm>
       <Form initialData={dataDelivery} onSubmit={handleSubmit}>
         <HeaderForm
           name={'Edição de encomendas'}
@@ -58,6 +58,6 @@ export default function DeliveriesEdit() {
           </Row>
         </Content>
       </Form>
-    </Container>
+    </ContainerForm>
   );
 }

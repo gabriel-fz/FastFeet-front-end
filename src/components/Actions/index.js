@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-
 import { MdMoreHoriz } from 'react-icons/md';
+import PropTypes from 'prop-types';
 
 import { Container, Badge, ActionsList } from './styles';
 
@@ -23,3 +23,7 @@ export default function Actions({ children }) {
     </Container>
   );
 }
+
+Actions.propTypes = {
+  children: PropTypes.element.isRequired,
+};

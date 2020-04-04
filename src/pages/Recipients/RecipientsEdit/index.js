@@ -7,7 +7,7 @@ import api from '~/services/api';
 
 import HeaderForm from '~/components/HeaderForm';
 
-import { Container, Content, Row } from '~/styles/registerDefault';
+import { ContainerForm, Content, Row } from '~/styles/defaults';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Nome obrigatório'),
@@ -49,7 +49,7 @@ export default function RecipientsEdit({ match }) {
   }
 
   return (
-    <Container>
+    <ContainerForm>
       <Form schema={schema} initialData={dataRecipient} onSubmit={handleSubmit}>
         <HeaderForm
           name={'Edição de destinatário'}
@@ -100,6 +100,6 @@ export default function RecipientsEdit({ match }) {
           </Row>
         </Content>
       </Form>
-    </Container>
+    </ContainerForm>
   );
 }

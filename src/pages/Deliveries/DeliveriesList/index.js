@@ -10,7 +10,7 @@ import ListDefault from 'components/ListDefault';
 import ModalDeliveries from './ModalDeliveries';
 import Badges from './Badges';
 import { MdVisibility, MdModeEdit, MdDeleteForever } from 'react-icons/md';
-import { Container } from '~/styles/listsDefault';
+import { ContainerList } from '~/styles/defaults';
 
 import { deliveryUpdateRequest } from '~/store/modules/delivery/actions';
 
@@ -66,7 +66,7 @@ export default function DeliveriesList() {
   }
 
   return (
-    <Container>
+    <ContainerList>
       <strong>Gerenciamento de encomendas</strong>
 
       <HeaderList urlLink={'/delivery/register'} onSubmit={handleSubmit} />
@@ -130,6 +130,6 @@ export default function DeliveriesList() {
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
       />
-    </Container>
+    </ContainerList>
   );
 }

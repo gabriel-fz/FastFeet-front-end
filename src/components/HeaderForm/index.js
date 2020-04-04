@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdChevronLeft, MdCheck, MdRotateRight } from 'react-icons/md';
+import PropTypes from 'prop-types';
 
 import { HeaderF, ButtonSave } from './styles';
 
@@ -29,3 +30,9 @@ export default function HeaderForm({ name, linkBack, loading }) {
     </HeaderF>
   );
 }
+
+HeaderForm.propTypes = {
+  name: PropTypes.string.isRequired,
+  linkBack: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
+};

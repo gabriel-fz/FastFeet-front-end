@@ -1,5 +1,24 @@
 import styled from 'styled-components';
 
+export const ContainerList = styled.div`
+  max-width: 1200px;
+  margin: auto;
+  padding-top: 34px;
+  display: flex;
+  flex-direction: column;
+
+  strong {
+    font-weight: bold;
+    font-size: 24px;
+    color: #444444;
+  }
+`;
+
+export const ContainerForm = styled.div`
+  max-width: 900px;
+  margin: auto;
+`;
+
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -34,4 +53,9 @@ export const Content = styled.div`
       margin-top: 5px;
     }
   }
+`;
+
+export const Row = styled.div`
+  display: flex;
+  flex-direction: row;
 `;

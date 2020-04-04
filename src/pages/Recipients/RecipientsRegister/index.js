@@ -1,20 +1,14 @@
 import React, { useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
 import history from '~/services/history';
 import api from '~/services/api';
 
-import { MdChevronLeft, MdCheck, MdRotateRight } from 'react-icons/md';
-import {
-  Container,
-  Content,
-  Row,
-  ButtonSave,
-  EditHeader,
-} from '~/styles/registerDefault';
+import HeaderForm from '~/components/HeaderForm';
+
+import { ContainerForm, Content, Row } from '~/styles/defaults';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Nome obrigatório'),
@@ -46,29 +40,13 @@ export default function RecipientsRegister() {
   }
 
   return (
-    <Container>
+    <ContainerForm>
       <Form schema={schema} onSubmit={handleSubmit}>
-        <EditHeader>
-          <h2>Cadastro de destinatário</h2>
-
-          <div>
-            <Link to="/recipients">
-              <MdChevronLeft color="#FFFFFF" size={20} />
-              VOLTAR
-            </Link>
-
-            <ButtonSave loading={loading}>
-              {loading ? (
-                <MdRotateRight color="#FFF" size={20} />
-              ) : (
-                <>
-                  <MdCheck color="#FFFFFF" size={20} />
-                  SALVAR
-                </>
-              )}
-            </ButtonSave>
-          </div>
-        </EditHeader>
+        <HeaderForm
+          name={'Cadastro de destinatário'}
+          linkBack={'/recipients'}
+          loading={loading}
+        />
 
         <Content>
           <Row>
@@ -113,6 +91,6 @@ export default function RecipientsRegister() {
           </Row>
         </Content>
       </Form>
-    </Container>
+    </ContainerForm>
   );
 }
