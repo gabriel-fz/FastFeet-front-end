@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Form, Input } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 import api from '~/services/api';
 
 import Actions from '~/components/Actions';
+import HeaderList from 'components/HeaderList';
 import ListDefault from 'components/ListDefault';
 import avatarUser from '~/assets/avatar-user.png';
 
-import { MdSearch, MdAdd, MdModeEdit, MdDeleteForever } from 'react-icons/md';
-import { Container, LineTools } from '~/styles/listsDefault';
+import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
+import { Container } from '~/styles/listsDefault';
 
 import { deliverymanUpdateRequest } from '~/store/modules/deliveryman/actions';
 
@@ -61,20 +60,7 @@ export default function DeliverymansList() {
     <Container>
       <strong>Gerenciando entregadores</strong>
 
-      <LineTools>
-        <Form onSubmit={handleSubmit}>
-          <MdSearch color="#999999" size={25} />
-          <Input
-            type="text"
-            name="search"
-            placeholder="Buscar por entregadores"
-          />
-        </Form>
-
-        <Link to="/deliveryman/register">
-          <MdAdd color="#fff" size={23} /> CADASTRAR
-        </Link>
-      </LineTools>
+      <HeaderList urlLink={'/deliveryman/register'} onSubmit={handleSubmit} />
 
       <ListDefault>
         <thead>

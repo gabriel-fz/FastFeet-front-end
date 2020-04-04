@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Input } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import Actions from '~/components/Actions';
+import HeaderList from 'components/HeaderList';
 import ListDefault from 'components/ListDefault';
 
-import { MdSearch, MdAdd, MdModeEdit, MdDeleteForever } from 'react-icons/md';
-import { Container, LineTools } from '~/styles/listsDefault';
+import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
+import { Container } from '~/styles/listsDefault';
 
 export default function RecipientsList() {
   const [recipients, setRecipients] = useState([]);
@@ -45,20 +45,9 @@ export default function RecipientsList() {
   return (
     <Container>
       <strong>Gerenciamento de destinatários</strong>
-      <LineTools>
-        <Form onSubmit={handleSubmit}>
-          <MdSearch color="#999999" size={25} />
-          <Input
-            type="text"
-            name="search"
-            placeholder="Buscar por destinatários"
-          />
-        </Form>
 
-        <Link to="/recipient/register">
-          <MdAdd color="#fff" size={23} /> CADASTRAR
-        </Link>
-      </LineTools>
+      <HeaderList urlLink={'/recipient/register'} onSubmit={handleSubmit} />
+
       <ListDefault>
         <thead>
           <tr>
