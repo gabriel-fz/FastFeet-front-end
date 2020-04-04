@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import api from '~/services/api';
+import { MdVisibility, MdDeleteForever } from 'react-icons/md';
 import { toast } from 'react-toastify';
 
+import api from '~/services/api';
+
 import Actions from '~/components/Actions';
-import { MdVisibility, MdDeleteForever } from 'react-icons/md';
-import { Container, Table } from '~/styles/listsDefault';
+import ListDefault from 'components/ListDefault';
+import { Container } from '~/styles/listsDefault';
 
 import ModalDeliveryProblems from './ModalDeliveryProblems';
 
@@ -44,7 +46,7 @@ export default function DeliveryProblem() {
   return (
     <Container>
       <strong>Problemas na entrega</strong>
-      <Table>
+      <ListDefault>
         <thead>
           <tr>
             <th>Encomenda</th>
@@ -84,7 +86,7 @@ export default function DeliveryProblem() {
             </tr>
           ))}
         </tbody>
-      </Table>
+      </ListDefault>
 
       <ModalDeliveryProblems
         problem={problemModal}

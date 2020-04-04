@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import Actions from '~/components/Actions';
+import ListDefault from 'components/ListDefault';
 
 import ModalDeliveries from './ModalDeliveries';
 import Badges from './Badges';
@@ -16,7 +17,7 @@ import {
   MdModeEdit,
   MdDeleteForever,
 } from 'react-icons/md';
-import { Container, LineTools, Table } from '~/styles/listsDefault';
+import { Container, LineTools } from '~/styles/listsDefault';
 
 import { deliveryUpdateRequest } from '~/store/modules/delivery/actions';
 
@@ -88,7 +89,7 @@ export default function DeliveriesList() {
           <MdAdd color="#fff" size={23} /> CADASTRAR
         </Link>
       </LineTools>
-      <Table>
+      <ListDefault>
         <thead>
           <tr>
             <th>ID</th>
@@ -140,7 +141,7 @@ export default function DeliveriesList() {
             </tr>
           ))}
         </tbody>
-      </Table>
+      </ListDefault>
 
       <ModalDeliveries
         data={modalData}

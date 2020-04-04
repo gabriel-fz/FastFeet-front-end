@@ -6,10 +6,11 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 
 import Actions from '~/components/Actions';
+import ListDefault from 'components/ListDefault';
 import avatarUser from '~/assets/avatar-user.png';
 
 import { MdSearch, MdAdd, MdModeEdit, MdDeleteForever } from 'react-icons/md';
-import { Container, LineTools, Table } from '~/styles/listsDefault';
+import { Container, LineTools } from '~/styles/listsDefault';
 
 import { deliverymanUpdateRequest } from '~/store/modules/deliveryman/actions';
 
@@ -75,7 +76,7 @@ export default function DeliverymansList() {
         </Link>
       </LineTools>
 
-      <Table>
+      <ListDefault>
         <thead>
           <tr>
             <th>ID</th>
@@ -118,7 +119,7 @@ export default function DeliverymansList() {
             </tr>
           ))}
         </tbody>
-      </Table>
+      </ListDefault>
     </Container>
   );
 }
