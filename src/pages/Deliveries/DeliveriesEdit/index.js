@@ -1,22 +1,15 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { MdChevronLeft, MdCheck, MdRotateRight } from 'react-icons/md';
 
 import api from '~/services/api';
 
-import RecipientInput from '~/components/DeliveryInputs/RecipientInput';
+import HeaderForm from '~/components/HeaderForm';
 import DeliverymanInput from '~/components/DeliveryInputs/DeliverymanInput';
+import RecipientInput from '~/components/DeliveryInputs/RecipientInput';
 
-import {
-  Container,
-  Content,
-  Row,
-  ButtonSave,
-  EditHeader,
-} from '~/styles/registerDefault';
+import { Container, Content, Row } from '~/styles/registerDefault';
 
 export default function DeliveriesEdit() {
   const dataDelivery = useSelector(state => state.delivery.data);
@@ -38,27 +31,12 @@ export default function DeliveriesEdit() {
   return (
     <Container>
       <Form initialData={dataDelivery} onSubmit={handleSubmit}>
-        <EditHeader>
-          <h2>Edição de encomendas</h2>
+        <HeaderForm
+          name={'Edição de encomendas'}
+          linkBack={'/deliveries'}
+          loading={loading}
+        />
 
-          <div>
-            <Link to="/deliveries">
-              <MdChevronLeft color="#FFFFFF" size={20} />
-              VOLTAR
-            </Link>
-
-            <ButtonSave loading={loading}>
-              {loading ? (
-                <MdRotateRight color="#FFF" size={20} />
-              ) : (
-                <>
-                  <MdCheck color="#FFFFFF" size={20} />
-                  SALVAR
-                </>
-              )}
-            </ButtonSave>
-          </div>
-        </EditHeader>
         <Content>
           <Row>
             <section>
