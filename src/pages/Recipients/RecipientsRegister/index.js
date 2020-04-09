@@ -34,7 +34,7 @@ export default function RecipientsRegister() {
 
       setLoading(false);
       toast.success('Destinatário cadastrado com sucesso!');
-      history.push('/recipients');
+      history.push('/destinatarios');
     } catch (err) {
       setLoading(false);
       toast.error('Algo deu errado com o cadastro');
@@ -46,7 +46,7 @@ export default function RecipientsRegister() {
       <Form schema={schema} onSubmit={handleSubmit}>
         <HeaderForm
           name={'Cadastro de destinatário'}
-          linkBack={'/recipients'}
+          linkBack={'/destinatarios'}
           loading={loading}
         />
 

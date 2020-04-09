@@ -55,7 +55,7 @@ export default function RecipientsEdit({ match }) {
       <Form schema={schema} initialData={dataRecipient} onSubmit={handleSubmit}>
         <HeaderForm
           name={'Edição de destinatário'}
-          linkBack={'/recipients'}
+          linkBack={'/destinatarios'}
           loading={loading}
         />
 

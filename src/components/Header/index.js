@@ -19,10 +19,10 @@ export default function Header() {
       <Content>
         <nav>
           <img src={logo} alt="FastFeet" />
-          <Link to="/deliveries">ENCOMENDAS</Link>
-          <Link to="/deliverymans">ENTREGADORES</Link>
-          <Link to="/recipients">DESTINATÁRIOS</Link>
-          <Link to="/delivery_problems">PROBLEMAS</Link>
+          <Link to="/encomendas">ENCOMENDAS</Link>
+          <Link to="/entregadores">ENTREGADORES</Link>
+          <Link to="/destinatarios">DESTINATÁRIOS</Link>
+          <Link to="/problemas">PROBLEMAS</Link>
         </nav>
 
         <aside>

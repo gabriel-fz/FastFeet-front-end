@@ -32,7 +32,7 @@ export default function DeliveriesEdit() {
       <Form initialData={dataDeliveryman} onSubmit={handleSubmit}>
         <HeaderForm
           name={'Edição de entregador'}
-          linkBack={'/deliverymans'}
+          linkBack={'/entregadores'}
           loading={loading}
         />
 

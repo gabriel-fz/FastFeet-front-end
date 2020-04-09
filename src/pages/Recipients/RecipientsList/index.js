@@ -46,7 +46,10 @@ export default function RecipientsList() {
     <ContainerList>
       <strong>Gerenciamento de destinatários</strong>
 
-      <HeaderList urlLink={'/recipient/register'} onSubmit={handleSubmit} />
+      <HeaderList
+        urlLink={'/destinatarios/cadastrar'}
+        onSubmit={handleSubmit}
+      />
 
       <ListDefault>
         <thead>
@@ -70,7 +73,7 @@ export default function RecipientsList() {
               <td>
                 <Actions>
                   <div>
-                    <Link to={`/recipient/edit/${recipient.id}`}>
+                    <Link to={`/destinatarios/editar/${recipient.id}`}>
                       <MdModeEdit color="#4D85EE" size={15} /> Editar
                     </Link>
                   </div>

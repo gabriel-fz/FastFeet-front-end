@@ -24,7 +24,7 @@ export default function DeliveriesRegister() {
 
       setLoading(false);
       toast.success('Entregador cadastrado com sucesso');
-      history.push('/deliverymans');
+      history.push('/entregadores');
     } catch (err) {
       setLoading(false);
       toast.error('Algo deu errado com o cadastro');
@@ -36,7 +36,7 @@ export default function DeliveriesRegister() {
       <Form onSubmit={handleSubmit}>
         <HeaderForm
           name={'Cadastro de entregadores'}
-          linkBack={'/deliverymans'}
+          linkBack={'/entregadores'}
           loading={loading}
         />
 

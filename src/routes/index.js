@@ -22,31 +22,40 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={SignIn} />
 
-      <Route path="/deliveries" component={DeliveriesList} isPrivate />
-      <Route path="/deliverymans" component={DeliverymansList} isPrivate />
-      <Route path="/recipients" component={RecipientsList} isPrivate />
-      <Route path="/delivery_problems" component={DeliveryProblems} isPrivate />
+      <Route path="/encomendas" exact component={DeliveriesList} isPrivate />
+      <Route
+        path="/entregadores"
+        exact
+        component={DeliverymansList}
+        isPrivate
+      />
+      <Route path="/destinatarios" exact component={RecipientsList} isPrivate />
+      <Route path="/problemas" exact component={DeliveryProblems} isPrivate />
 
       <Route
-        path="/delivery/register"
+        path="/encomendas/cadastrar"
         component={DeliveriesRegister}
         isPrivate
       />
       <Route
-        path="/deliveryman/register"
+        path="/entregadores/cadastrar"
         component={DeliverymansRegister}
         isPrivate
       />
       <Route
-        path="/recipient/register"
+        path="/destinatarios/cadastrar"
         component={RecipientsRegister}
         isPrivate
       />
 
-      <Route path="/delivery/edit" component={DeliveriesEdit} isPrivate />
-      <Route path="/deliveryman/edit" component={DeliverymansEdit} isPrivate />
+      <Route path="/encomendas/editar" component={DeliveriesEdit} isPrivate />
       <Route
-        path="/recipient/edit/:recipientId"
+        path="/entregadores/editar"
+        component={DeliverymansEdit}
+        isPrivate
+      />
+      <Route
+        path="/destinatarios/editar/:recipientId"
         component={RecipientsEdit}
         isPrivate
       />

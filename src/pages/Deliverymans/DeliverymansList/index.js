@@ -60,7 +60,7 @@ export default function DeliverymansList() {
     <ContainerList>
       <strong>Gerenciando entregadores</strong>
 
-      <HeaderList urlLink={'/deliveryman/register'} onSubmit={handleSubmit} />
+      <HeaderList urlLink={'/entregadores/cadastrar'} onSubmit={handleSubmit} />
 
       <ListDefault>
         <thead>

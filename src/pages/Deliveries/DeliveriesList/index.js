@@ -69,7 +69,7 @@ export default function DeliveriesList() {
     <ContainerList>
       <strong>Gerenciamento de encomendas</strong>
 
-      <HeaderList urlLink={'/delivery/register'} onSubmit={handleSubmit} />
+      <HeaderList urlLink={'/encomendas/cadastrar'} onSubmit={handleSubmit} />
 
       <ListDefault>
         <thead>
