@@ -19,7 +19,9 @@ const schema = Yup.object().shape({
   complement: Yup.string().required('Complemento obrigatório'),
   state: Yup.string().required('Estado obrigatório'),
   city: Yup.string().required('Cidade obrigatório'),
-  zip_code: Yup.string().required('CEP obrigatório'),
+  zip_code: Yup.string()
+    .length(9, 'Digite o CEP com hífen')
+    .required('CEP obrigatório'),
 });
 
 export default function RecipientsRegister() {
