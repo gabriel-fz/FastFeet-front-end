@@ -27,7 +27,7 @@ export default function RecipientsList() {
     loadRecipients();
   }, [searchRecipients, indexPage]);
 
-  const lastIndexPage = useMemo(() => (recipients.length < 3 ? true : false), [
+  const lastIndexPage = useMemo(() => (recipients.length < 10 ? true : false), [
     recipients.length,
   ]);
 

@@ -31,7 +31,7 @@ export default function DeliveryProblem() {
   }, [deliveryProblems]);
 
   const lastIndexPage = useMemo(
-    () => (deliveryProblems.length < 3 ? true : false),
+    () => (deliveryProblems.length < 10 ? true : false),
     [deliveryProblems.length]
   );
 

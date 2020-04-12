@@ -38,7 +38,7 @@ export default function DeliverymansList() {
   }, [searchDeliverymans, indexPage]);
 
   const lastIndexPage = useMemo(
-    () => (deliverymans.length < 3 ? true : false),
+    () => (deliverymans.length < 10 ? true : false),
     [deliverymans.length]
   );
 

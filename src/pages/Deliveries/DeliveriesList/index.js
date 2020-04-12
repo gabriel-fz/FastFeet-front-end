@@ -42,7 +42,7 @@ export default function DeliveriesList() {
     loadDeliveries();
   }, [searchDeliveries, indexPage]);
 
-  const lastIndexPage = useMemo(() => (deliveries.length < 3 ? true : false), [
+  const lastIndexPage = useMemo(() => (deliveries.length < 10 ? true : false), [
     deliveries.length,
   ]);
 
