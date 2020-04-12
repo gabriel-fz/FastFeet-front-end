@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { MdVisibility, MdDeleteForever } from 'react-icons/md';
 import { toast } from 'react-toastify';
 
@@ -6,17 +6,22 @@ import api from '~/services/api';
 
 import Actions from '~/components/Actions';
 import ListDefault from 'components/ListDefault';
+import FooterList from 'components/FooterList';
+
 import { ContainerList } from '~/styles/defaults';
 
 import ModalDeliveryProblems from './ModalDeliveryProblems';
 
 export default function DeliveryProblem() {
   const [deliveryProblems, setDeliveryProblems] = useState([]);
+  const [indexPage, setIndexPage] = useState(1);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [problemModal, setProblemModal] = useState();
 
   async function loadDeliveryProblems() {
-    const response = await api.get('delivery/problems');
+    const response = await api.get('delivery/problems', {
+      params: { page: indexPage },
+    });
 
     setDeliveryProblems(response.data);
   }
@@ -24,6 +29,11 @@ export default function DeliveryProblem() {
   useEffect(() => {
     loadDeliveryProblems();
   }, [deliveryProblems]);
+
+  const lastIndexPage = useMemo(
+    () => (deliveryProblems.length < 3 ? true : false),
+    [deliveryProblems.length]
+  );
 
   async function handleCancel(id) {
     if (window.confirm('Deseja mesmo cancelar a entrega?')) {
@@ -92,6 +102,13 @@ export default function DeliveryProblem() {
         problem={problemModal}
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
+      />
+
+      <FooterList
+        index={indexPage}
+        lastIndex={lastIndexPage}
+        antClic={() => setIndexPage(indexPage - 1)}
+        proxClic={() => setIndexPage(indexPage + 1)}
       />
     </ContainerList>
   );
