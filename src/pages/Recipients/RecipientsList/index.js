@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import Actions from '~/components/Actions';
-import HeaderList from 'components/HeaderList';
 import ListDefault from 'components/ListDefault';
+import HeaderList from 'components/HeaderList';
+import FooterList from 'components/FooterList';
 
 import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
 import { ContainerList } from '~/styles/defaults';
@@ -13,17 +14,22 @@ import { ContainerList } from '~/styles/defaults';
 export default function RecipientsList() {
   const [recipients, setRecipients] = useState([]);
   const [searchRecipients, setSearchRecipients] = useState();
+  const [indexPage, setIndexPage] = useState(1);
 
   async function loadRecipients() {
     const response = await api.get('recipients', {
-      params: { name: searchRecipients },
+      params: { name: searchRecipients, page: indexPage },
     });
     setRecipients(response.data);
   }
 
   useEffect(() => {
     loadRecipients();
-  }, [recipients, searchRecipients]);
+  }, [searchRecipients, indexPage]);
+
+  const lastIndexPage = useMemo(() => (recipients.length < 3 ? true : false), [
+    recipients.length,
+  ]);
 
   async function handleDelete(id) {
     if (window.confirm('Deseja mesmo daletar o entregador?')) {
@@ -92,6 +98,13 @@ export default function RecipientsList() {
           ))}
         </tbody>
       </ListDefault>
+
+      <FooterList
+        index={indexPage}
+        lastIndex={lastIndexPage}
+        antClic={() => setIndexPage(indexPage - 1)}
+        proxClic={() => setIndexPage(indexPage + 1)}
+      />
     </ContainerList>
   );
 }
