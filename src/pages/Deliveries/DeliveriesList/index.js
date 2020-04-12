@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import Actions from '~/components/Actions';
-import HeaderList from 'components/HeaderList';
 import ListDefault from 'components/ListDefault';
+import HeaderList from 'components/HeaderList';
+import FooterList from 'components/FooterList';
 
 import ModalDeliveries from './ModalDeliveries';
 import Badges from './Badges';
@@ -16,19 +17,21 @@ import { deliveryUpdateRequest } from '~/store/modules/delivery/actions';
 
 export default function DeliveriesList() {
   const dispatch = useDispatch();
+  const [deliveries, setDeliveries] = useState([]);
+  const [searchDeliveries, setSearchDeliveries] = useState();
+  const [indexPage, setIndexPage] = useState(1);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalData, setModalData] = useState({
     recipient: {},
     deliveryman: {},
   });
-  const [deliveries, setDeliveries] = useState([]);
-  const [searchDeliveries, setSearchDeliveries] = useState();
 
   async function loadDeliveries() {
     try {
       const response = await api.get('deliveries', {
-        params: { name: searchDeliveries },
+        params: { name: searchDeliveries, page: indexPage },
       });
+
       setDeliveries(response.data);
     } catch (err) {
       toast.error('Não foi possível carregar a lista de entregas');
@@ -37,7 +40,11 @@ export default function DeliveriesList() {
 
   useEffect(() => {
     loadDeliveries();
-  }, [searchDeliveries]);
+  }, [searchDeliveries, indexPage]);
+
+  const lastIndexPage = useMemo(() => (deliveries.length < 3 ? true : false), [
+    deliveries.length,
+  ]);
 
   function handleEdit(delivery) {
     dispatch(deliveryUpdateRequest(delivery));
@@ -129,6 +136,13 @@ export default function DeliveriesList() {
         data={modalData}
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
+      />
+
+      <FooterList
+        index={indexPage}
+        lastIndex={lastIndexPage}
+        antClic={() => setIndexPage(indexPage - 1)}
+        proxClic={() => setIndexPage(indexPage + 1)}
       />
     </ContainerList>
   );
