@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import api from '~/services/api';
 
-import Actions from '~/components/Actions';
-import HeaderList from 'components/HeaderList';
-import ListDefault from 'components/ListDefault';
 import avatarUser from '~/assets/avatar-user.png';
+import Actions from '~/components/Actions';
+import ListDefault from 'components/ListDefault';
+import HeaderList from 'components/HeaderList';
+import FooterList from 'components/FooterList';
 
 import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
 import { ContainerList } from '~/styles/defaults';
@@ -17,10 +18,11 @@ export default function DeliverymansList() {
   const dispatch = useDispatch();
   const [deliverymans, setDeliverymans] = useState([]);
   const [searchDeliverymans, setSearchDeliverymans] = useState();
+  const [indexPage, setIndexPage] = useState(1);
 
   async function loadDeliverymans() {
     const response = await api.get('deliverymans', {
-      params: { name: searchDeliverymans },
+      params: { name: searchDeliverymans, page: indexPage },
     });
 
     const data = response.data.map(deliveryman => ({
@@ -33,7 +35,12 @@ export default function DeliverymansList() {
 
   useEffect(() => {
     loadDeliverymans();
-  }, [searchDeliverymans]);
+  }, [searchDeliverymans, indexPage]);
+
+  const lastIndexPage = useMemo(
+    () => (deliverymans.length < 3 ? true : false),
+    [deliverymans.length]
+  );
 
   function handleEdit(deliveryman) {
     dispatch(deliverymanUpdateRequest(deliveryman));
@@ -106,6 +113,13 @@ export default function DeliverymansList() {
           ))}
         </tbody>
       </ListDefault>
+
+      <FooterList
+        index={indexPage}
+        lastIndex={lastIndexPage}
+        antClic={() => setIndexPage(indexPage - 1)}
+        proxClic={() => setIndexPage(indexPage + 1)}
+      />
     </ContainerList>
   );
 }
