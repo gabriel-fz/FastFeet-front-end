@@ -36,8 +36,6 @@ export default function Header({ linkActive }) {
     dispatch(signOut());
   }
 
-  console.log(linkActive);
-
   return (
     <Container>
       <Content>

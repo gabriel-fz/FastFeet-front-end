@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Container } from './styles';
 
@@ -27,3 +28,11 @@ export default function FooterList({ index, lastIndex, antClic, proxClic }) {
     </Container>
   );
 }
+
+FooterList.propTypes = {
+  children: PropTypes.array.isRequired,
+  index: PropTypes.number,
+  lastIndex: PropTypes.bool,
+  antClic: PropTypes.func,
+  proxClic: PropTypes.func,
+};
