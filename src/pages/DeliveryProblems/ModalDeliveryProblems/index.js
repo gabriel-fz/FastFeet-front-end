@@ -17,5 +17,5 @@ export default function ModalDeliveryProblems({ problem, ...rest }) {
 }
 
 ModalDeliveryProblems.propTypes = {
-  problem: PropTypes.string.isRequired,
+  problem: PropTypes.string,
 };

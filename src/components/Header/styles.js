@@ -25,16 +25,6 @@ export const Content = styled.div`
       border-right: 1px solid #eee;
       height: 26px;
     }
-
-    a {
-      font-weight: bold;
-      color: #999999;
-      margin-right: 21px;
-
-      &:hover {
-        color: #444444;
-      }
-    }
   }
 
   aside {
@@ -58,5 +48,17 @@ export const Profile = styled.div`
     color: #de3b3b;
     background: #fff;
     border: none;
+  }
+`;
+
+export const Links = styled.div`
+  a {
+    font-weight: bold;
+    color: #999999;
+    margin-right: 21px;
+
+    &:nth-child(${props => props.active}) {
+      color: #444444;
+    }
   }
 `;

@@ -10,6 +10,7 @@ import { store } from '~/store';
 export default function RouteWrapper({
   component: Component,
   isPrivate,
+  linkActive,
   ...rest
 }) {
   const { signed } = store.getState().auth;
@@ -28,7 +29,7 @@ export default function RouteWrapper({
     <Route
       {...rest}
       render={props => (
-        <Layout>
+        <Layout linkActive={linkActive}>
           <Component {...props} />
         </Layout>
       )}

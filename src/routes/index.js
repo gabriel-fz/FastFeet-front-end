@@ -22,42 +22,71 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={SignIn} />
 
-      <Route path="/encomendas" exact component={DeliveriesList} isPrivate />
+      <Route
+        path="/encomendas"
+        exact
+        isPrivate
+        component={DeliveriesList}
+        linkActive="encomendas"
+      />
       <Route
         path="/entregadores"
         exact
-        component={DeliverymansList}
         isPrivate
+        component={DeliverymansList}
+        linkActive="entregadores"
       />
-      <Route path="/destinatarios" exact component={RecipientsList} isPrivate />
-      <Route path="/problemas" exact component={DeliveryProblems} isPrivate />
+      <Route
+        path="/destinatarios"
+        exact
+        isPrivate
+        component={RecipientsList}
+        linkActive="destinatarios"
+      />
+      <Route
+        path="/problemas"
+        exact
+        isPrivate
+        component={DeliveryProblems}
+        linkActive="problemas"
+      />
 
       <Route
         path="/encomendas/cadastrar"
-        component={DeliveriesRegister}
         isPrivate
+        component={DeliveriesRegister}
+        linkActive="encomendas"
       />
       <Route
         path="/entregadores/cadastrar"
-        component={DeliverymansRegister}
         isPrivate
+        component={DeliverymansRegister}
+        linkActive="entregadores"
       />
       <Route
         path="/destinatarios/cadastrar"
-        component={RecipientsRegister}
         isPrivate
+        component={RecipientsRegister}
+        linkActive="destinatarios"
       />
 
-      <Route path="/encomendas/editar" component={DeliveriesEdit} isPrivate />
+      <Route
+        path="/encomendas/editar"
+        isPrivate
+        component={DeliveriesEdit}
+        linkActive="encomendas"
+      />
       <Route
         path="/entregadores/editar"
-        component={DeliverymansEdit}
         isPrivate
+        component={DeliverymansEdit}
+        linkActive="entregadores"
       />
       <Route
         path="/destinatarios/editar/:recipientId"
-        component={RecipientsEdit}
         isPrivate
+        component={RecipientsEdit}
+        linkActive="destinatarios"
       />
     </Switch>
   );

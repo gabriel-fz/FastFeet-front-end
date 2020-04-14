@@ -13,5 +13,5 @@ export default function ModalDefault({ children, ...rest }) {
 }
 
 ModalDefault.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.array.isRequired,
 };

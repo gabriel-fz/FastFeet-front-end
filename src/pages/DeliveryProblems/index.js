@@ -66,7 +66,7 @@ export default function DeliveryProblem() {
         </thead>
         <tbody>
           {deliveryProblems.map(deliveryProblem => (
-            <tr>
+            <tr key={deliveryProblem.id}>
               <td>{deliveryProblem.id}</td>
               <td>
                 <p>{deliveryProblem.description}</p>

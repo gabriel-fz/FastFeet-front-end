@@ -81,7 +81,7 @@ export default function DeliverymansList() {
         </thead>
         <tbody>
           {deliverymans.map(deliveryman => (
-            <tr>
+            <tr key={deliveryman.id}>
               <td>{deliveryman.id}</td>
               <td>
                 <img src={deliveryman.avatarUrl} alt="" />

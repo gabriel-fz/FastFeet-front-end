@@ -25,5 +25,5 @@ export default function Actions({ children }) {
 }
 
 Actions.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.array.isRequired,
 };

@@ -68,7 +68,7 @@ export default function RecipientsList() {
         </thead>
         <tbody>
           {recipients.map(recipient => (
-            <tr>
+            <tr key={recipient.id}>
               <td>{recipient.id}</td>
               <td>{recipient.name}</td>
               <td>
